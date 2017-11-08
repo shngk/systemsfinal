@@ -5,3 +5,7 @@ CONFIG -= qt
 
 SOURCES += \
     DecisionTree.cpp
+
+DISTFILES += \
+    res/iris.data \
+    res/text.txt
