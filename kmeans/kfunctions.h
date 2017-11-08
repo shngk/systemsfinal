@@ -1,4 +1,4 @@
-/* */
+/* header. contains k_node class */
 
 #ifndef KFUNCTIONS_H
 #define KFUNCTIONS_H
@@ -10,7 +10,7 @@ class k_node {
   double pet_len;
   double pet_wid;
 
-  enum class species {Setosa, Versicolour, Virginica};
-}
+  std :: string species;
+};
 
 #endif
