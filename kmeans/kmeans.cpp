@@ -23,7 +23,7 @@ int main(){
   
   
   for ( string line; getline(data, line);){
-    k_node flower = new k_node; 
+    k_node * flower = new k_node;
     
     int item = 0;
     
@@ -37,15 +37,15 @@ int main(){
       token = line.substr(0, pos);
       //add the token to the node in the list
       switch (item){
-      case 0: flower.sep_len = atof(token.c_str());
+      case 0: flower->sep_len = atof(token.c_str());
 	break;
-      case 1: flower.sep_wid = atof(token.c_str());
+      case 1: flower->sep_wid = atof(token.c_str());
 	break;
-      case 2: flower.pet_len = atof(token.c_str());
+      case 2: flower->pet_len = atof(token.c_str());
 	break;
-      case 3: flower.pet_wid = atof(token.c_str());
+      case 3: flower->pet_wid = atof(token.c_str());
 	break;
-      case 4: flower.species = token;
+      case 4: flower->species = token;
 	break;
       }
       line.erase(0, pos + delimiter.length());
@@ -53,5 +53,8 @@ int main(){
     }
     list.push_back(flower);
   }
-  
+
+  // iterate through list and print each line
+  // (delete after correct)
+  // (making sure data has been read in correctly)
 }
