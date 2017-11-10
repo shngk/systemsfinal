@@ -1,4 +1,9 @@
+#include <stdlib.h>
 #include <fstream>
+#include <iostream>
+#include "kfunctions.h"
+using namespace std;
+
 
 int main(){
   // read in the data!
@@ -10,19 +15,41 @@ int main(){
     exit(1); 
   }
 
-  for ( std :: string line; getline(input, line);){//replacing this; not sure that its getting the line from the file.
-    //put them into the class
-    std::delimiter = ",";
+  //arraylist of flowers goes here
+  vector<k_means> list;
+  
+  
+  for ( string line; getline(data, line);){
+    k_means flower = new k_means; 
+    //add the flower to the array list
+    
+    int item = 0;
+    
+    
+    string delimiter = ",";
 
-    //Figure out how this works exactly...
+    //Iterate through the line
     size_t pos = 0;
-    std::string token;
-    while((pos = line.find(delimiter)) != std::string::npos){
+    string token;
+    while((pos = line.find(delimiter)) != string::npos){
       token = s.substr(0, pos);
-      std::cout << token << std::end1;
+      //add the token to the node in the list
+      switch (item){
+      case 0: flower::sep_len = token;
+	break;
+      case 1: flower:: sep_wid = token;
+	break;
+      case 2: flower:: pet_len = token;
+	break;
+      case 3: flower::pet_wid = token;
+	break;
+      case 4: flower::species = token;
+	break;
+      }
       s.erase(0, pos + delimiter.length());
+      item++;
     }
-    std::cout << s << std::end1;
+    list.push_back(flower);
   }
   
 }
