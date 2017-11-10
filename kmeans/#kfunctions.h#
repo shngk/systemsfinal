@@ -1,0 +1,9 @@
+/* header. contains k_node class */
+
+#ifndef KFUNCTIONS_H
+#define KFUNCTIONS_H
+
+//struct (class)
+class k_node(
+
+#endif
