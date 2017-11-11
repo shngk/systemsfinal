@@ -22,12 +22,8 @@ int main(){
   
   
   for ( string line; getline(data, line);){
-<<<<<<< HEAD
     vector<string> flower;    
-=======
-    vector<std::string> flower;
     
->>>>>>> dad664733130f274759a05b5b496a377bd07fedf
     
     string delimiter = ",";
 
@@ -36,12 +32,9 @@ int main(){
     string token;
     while((pos = line.find(delimiter)) != string::npos){
       token = line.substr(0, pos);
-<<<<<<< HEAD
       
       //add the token to the flower in the list
-=======
                                                  //add the token to the flower in the list
->>>>>>> dad664733130f274759a05b5b496a377bd07fedf
       flower.push_back(token);
       line.erase(0, pos + delimiter.length());
     }
@@ -60,7 +53,7 @@ int main(){
   // initialize centroids randomly
 
   // initialize book-keeping variables
-  int iterations = 0;
+  
 
   // running the algorithm
   // // save old centroids for convergence test
