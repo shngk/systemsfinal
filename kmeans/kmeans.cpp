@@ -22,17 +22,26 @@ int main(){
   
   
   for ( string line; getline(data, line);){
+<<<<<<< HEAD
+    vector<string> flower;    
+=======
     vector<std::string> flower;
     
+>>>>>>> dad664733130f274759a05b5b496a377bd07fedf
     
     string delimiter = ",";
 
-    //Iterate through the line
+    // iterate through the line
     size_t pos = 0;
     string token;
     while((pos = line.find(delimiter)) != string::npos){
       token = line.substr(0, pos);
+<<<<<<< HEAD
+      
+      //add the token to the flower in the list
+=======
                                                  //add the token to the flower in the list
+>>>>>>> dad664733130f274759a05b5b496a377bd07fedf
       flower.push_back(token);
       line.erase(0, pos + delimiter.length());
     }
@@ -44,4 +53,21 @@ int main(){
   // (delete after correct)
   // (making sure data has been read in correctly)
   // vector<k_node>::iterator it = vector.begin();
+
+
+  /* KMEANS ALGORITHM */
+
+  // initialize centroids randomly
+
+  // initialize book-keeping variables
+  int iterations = 0;
+
+  // running the algorithm
+  // // save old centroids for convergence test
+  //
+  // // assign labels to each datapoint based on centroids
+  //
+  // // assign centroids based on datapoint labels
+  
+  
 }
