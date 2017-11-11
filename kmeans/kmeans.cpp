@@ -18,12 +18,11 @@ int main(){
   }
 
   //arraylist of flowers goes here
-  // vector<vector<string> > list;
+  vector<vector<string> > list;
   
   
   for ( string line; getline(data, line);){
-    vector<string> flower;    
-    
+    vector<string> flower;      
     
     string delimiter = ",";
 
@@ -32,13 +31,11 @@ int main(){
     string token;
     while((pos = line.find(delimiter)) != string::npos){
       token = line.substr(0, pos);
-      
       //add the token to the flower in the list
-                                                 //add the token to the flower in the list
       flower.push_back(token);
       line.erase(0, pos + delimiter.length());
     }
-    //list.push_back(flower);
+    list.push_back(flower);
   }
   data.close();
 
