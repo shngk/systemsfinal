@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+
 using namespace std;
 
 int main()
@@ -39,7 +40,7 @@ int main()
 
             if(key_flag==0){
                 temp = line;
-                key = 1;
+                key = 0;
                 key_flag = 1;
                 key_vector.push_back(line);
             }
