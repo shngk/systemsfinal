@@ -20,9 +20,11 @@ int main()
 
         int key_flag = 0;
         int key = 0;
+        int num_key = -1;
         string temp;
         vector<string> key_vector;
         vector<vector<double>> data;
+        vector<int> key_num;
         while (!dataset.eof()) {
             vector<double> each;
             getline(dataset, line);
@@ -39,6 +41,7 @@ int main()
             }
 
             if(key_flag==0){
+                num_key++;
                 temp = line;
                 key = 0;
                 key_flag = 1;
@@ -48,6 +51,11 @@ int main()
                 temp = line;
                 key++;
                 key_vector.push_back(line);
+                key_num.push_back(num_key);
+                num_key = 1;
+            }
+            else{
+                num_key++;
             }
             if(deli == 1) {
                 each.push_back(key);
@@ -65,6 +73,11 @@ int main()
 
         for(int i = 0; i < (int) key_vector.size(); i++){
             cout << key_vector[i] << " ";
+        }
+        cout << endl;
+
+        for(int i = 0; i < (int) key_num.size(); i++){
+            cout << key_num[i] << " ";
         }
 
    }
