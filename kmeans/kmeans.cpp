@@ -57,4 +57,5 @@ int main(){
   // iterate through list and print each line
   // (delete after correct)
   // (making sure data has been read in correctly)
+  // vector<k_node>::iterator it = vector.begin();
 }
