@@ -1,8 +1,10 @@
 #include <stdlib.h>
 #include <fstream>
+#include <vector>
 #include <iostream>
-#include "kfunctions.h"
+
 using namespace std;
+using std::vector;
 
 
 int main(){
@@ -10,20 +12,17 @@ int main(){
   ifstream data;
   data.open("iris.data");
 
-  if(!data){                       //terminate if error opening file
+  if(!data){                                   //terminate if error opening file
     cout << "Unable to open file";
     exit(1); 
   }
 
   //arraylist of flowers goes here
-  vector<k_means> list;
+  // vector<vector<string> > list;
   
   
   for ( string line; getline(data, line);){
-    k_means flower = new k_means; 
-    //add the flower to the array list
-    
-    int item = 0;
+    vector<std::string> flower;
     
     
     string delimiter = ",";
@@ -32,24 +31,17 @@ int main(){
     size_t pos = 0;
     string token;
     while((pos = line.find(delimiter)) != string::npos){
-      token = s.substr(0, pos);
-      //add the token to the node in the list
-      switch (item){
-      case 0: flower::sep_len = token;
-	break;
-      case 1: flower:: sep_wid = token;
-	break;
-      case 2: flower:: pet_len = token;
-	break;
-      case 3: flower::pet_wid = token;
-	break;
-      case 4: flower::species = token;
-	break;
-      }
-      s.erase(0, pos + delimiter.length());
-      item++;
+      token = line.substr(0, pos);
+                                                 //add the token to the flower in the list
+      flower.push_back(token);
+      line.erase(0, pos + delimiter.length());
     }
-    list.push_back(flower);
+    //list.push_back(flower);
   }
-  
+  data.close();
+
+  // iterate through list and print each line
+  // (delete after correct)
+  // (making sure data has been read in correctly)
+  // vector<k_node>::iterator it = vector.begin();
 }

@@ -5,6 +5,7 @@
 
 //struct (class)
 class k_node {
+ public:
   double sep_len;
   double sep_wid;
   double pet_len;
