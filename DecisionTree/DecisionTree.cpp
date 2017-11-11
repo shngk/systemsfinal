@@ -10,6 +10,9 @@
 #include <math.h>
 using namespace std;
 
+double getGain(vector<vector<double>> data,vector<int> count);
+double getEntropy(vector<vector<double>> data,vector<int> count);
+
 int main()
 {
     ifstream dataset;
@@ -75,3 +78,21 @@ int main()
 
 
 }
+
+double getGain(vector<vector<double>> data,vector<int> count,int attribute){
+	double entropy=getEntropy(data,count);
+	double gain=entropy;
+	double value=1;
+	for(int i=0;i<data.size();i++){
+		data[i][attribute];
+	}
+}
+
+double getEntropy(vector<vector<double>> data,vector<int> count){
+	double entropy=0.0;
+	for(int i=0;i<count.size();i++){
+		entropy-=vector[i]/data.size()*log2((double)vector[i]/data.size());
+	}
+}
+
+
