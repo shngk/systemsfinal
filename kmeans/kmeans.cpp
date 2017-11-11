@@ -13,7 +13,7 @@ int main(){
   data.open("iris.data");
 
   if(!data){                                   //terminate if error opening file
-    cout << "Unable to open file";
+    cout << "Unable to open file\n";
     exit(1); 
   }
 
@@ -29,8 +29,10 @@ int main(){
     // iterate through the line
     size_t pos = 0;
     string token;
+
     while((pos = line.find(delimiter)) != string::npos){
       token = line.substr(0, pos);
+      cout << token << "\n";
       //add the token to the flower in the list
       flower.push_back(token);
       line.erase(0, pos + delimiter.length());
@@ -43,7 +45,11 @@ int main(){
   // (delete after correct)
   // (making sure data has been read in correctly)
   // vector<k_node>::iterator it = vector.begin();
-
+  cout << list[0][0];
+  cout << list[0][1];
+  cout << list[0][2];
+  cout << list[0][3];
+  cout << list[0][4];
 
   /* KMEANS ALGORITHM */
 
