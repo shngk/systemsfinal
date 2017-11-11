@@ -53,6 +53,7 @@ int main(){
     }
     list.push_back(flower);
   }
+  data.close();
 
   // iterate through list and print each line
   // (delete after correct)
