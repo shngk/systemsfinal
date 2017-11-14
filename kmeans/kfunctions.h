@@ -14,4 +14,6 @@ class k_node {
   std :: string species;
 };
 
+class centroid;
+
 #endif
