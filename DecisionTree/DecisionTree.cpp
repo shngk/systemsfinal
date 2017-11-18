@@ -13,100 +13,81 @@ using namespace std;
 
 double getGain(vector<vector<double>> data,vector<int> count);
 double getEntropy(vector<vector<double>> data,vector<int> count);
+void read_data(ifstream &dataset, vector<string> &key_vector,
+               vector<vector<double>> &data, vector<int> &key_num);
+
+
 
 int main()
 {
     ifstream dataset;
     dataset.open("../iris.data");
-    string line;
+
     if (dataset.is_open()) {
+       map<vector<double>, string> data;
+       vector<map<double, int>> attributes;
 
-        int key_flag = 0;
-        int key = 0;
-        int num_key = -1;
-        string temp;
-        vector<string> key_vector;
-        vector<vector<double>> data;
-        vector<int> key_num;
-        while (!dataset.eof()) {
-            vector<double> each;
-            getline(dataset, line);
-            size_t pos = 0;
-            string token;
-            string delimiter = ",";
-            int deli = 0;
+
+    }
+    else{
+         cout << "fail" << endl;
+    }
+    dataset.close();
+    return 0;
+
+
+}
+
+void read_data(ifstream &dataset, map<vector<double>, string> data, vector<map<double, int>> attributes){
+
+    int num_in_row = 0;
+    int first_row = 0;
+
+    while (!dataset.eof()) {
+        string line;
+        string token;
+        string delimiter = ",";
+        vector<double> each;
+        getline(dataset, line);
+        size_t pos = 0;
+        int index = 0;
+
+        if (first_row == 0){
+            first_row = 1;
+            string temp = line;
             while((pos = line.find(delimiter)) != string::npos){
-                token = line.substr(0,pos);
-                each.push_back(stod(token, NULL));
-                //each.push_back(token);
+                num_in_row++;
                 line.erase(0,pos+delimiter.length());
-                deli = 1;
             }
-
-            if(key_flag==0){
-                num_key++;
-                temp = line;
-                key = 0;
-                key_flag = 1;
-                key_vector.push_back(line);
-            }
-            if(line != temp){
-                temp = line;
-                key++;
-                key_vector.push_back(line);
-                key_num.push_back(num_key);
-                num_key = 1;
-            }
-            else{
-                num_key++;
-            }
-            if(deli == 1) {
-                each.push_back(key);
-                data.push_back(each);
-            }
-
-
-        }
-        for(int j = 0; j < (int)data.size(); j++){
-            for(int i = 0; i < (int)data[j].size(); i++){
-                cout << data[j][i] << " ";
-            }
-            cout << endl;
+            line = temp;
         }
 
-        for(int i = 0; i < (int) key_vector.size(); i++){
-            cout << key_vector[i] << " ";
+        for(int i = 0; i< num_in_row; i++){
+            map<double, int> count_each_column;
+            attributes.push_back(count_each_column);
         }
-        cout << endl;
 
-        for(int i = 0; i < (int) key_num.size(); i++){
-            cout << key_num[i] << " ";
-        }
-        //hahahhaha
-   }
-   else{
-        cout << "fail" << endl;
-   }
-   dataset.close();
-   return 0;
 
+         while((pos = line.find(delimiter)) != string::npos){
+              token = line.substr(0,pos);
+              double d = stod(token, NULL);
+              each.push_back(d);
+              line.erase(0,pos+delimiter.length());
+              for (int i = 0; i < num_in_row; i++){
+
+                  if(index == i){
+                      attributes[index][d]++;
+                  }
+              }
+              index++;
+
+         }
+         data[each] = line;
+
+
+    }
 
 }
 
-double getGain(vector<vector<double>> data,vector<int> count,int attribute){
-	double entropy=getEntropy(data,count);
-	double gain=entropy;
-	double value=1;
-	for(int i=0;i<data.size();i++){
-		data[i][attribute];
-	}
-}
-
-double getEntropy(vector<vector<double>> data,vector<int> count){
-	double entropy=0.0;
-	for(int i=0;i<count.size();i++){
-		entropy-=vector[i]/data.size()*log2((double)vector[i]/data.size());
-	}
-}
 
 
