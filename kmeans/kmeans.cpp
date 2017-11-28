@@ -32,7 +32,7 @@ int main(){
 
     while((pos = line.find(delimiter)) != string::npos){
       token = line.substr(0, pos);
-      cout << token << "\n";
+      cout << token 
       //add the token to the flower in the list
       flower.push_back(token);
       line.erase(0, pos + delimiter.length());
