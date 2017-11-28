@@ -3,7 +3,10 @@
 #ifndef KFUNCTIONS_H
 #define KFUNCTIONS_H
 
-//struct (class)
+using namespace std;
+using std::vector;
+
+// class for representing each iris data point
 class k_node {
  public:
   double sep_len;
@@ -13,5 +16,14 @@ class k_node {
 
   std :: string species;
 };
+
+class centroid;
+
+// functions used in k-means algorithm
+centroid* get_random_centroid();
+
+void assign_pts(vector<vector<string> > data, centroid c1, centroid c2, centroid c3);
+
+centroid * calculate_centroid(centroid *c);
 
 #endif
