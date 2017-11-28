@@ -19,6 +19,7 @@ int main(){
     exit(1); 
   }
 
+
   //arraylist of flowers goes here
   vector<vector<string> > list;  
   
@@ -40,12 +41,12 @@ int main(){
     // for adding the species name to vector item
     token = line;
     flower.push_back(token);
-    
     list.push_back(flower);
-    
   }
-  data.close();
 
+  data.close(); 
+  //DEBUGGED UP TO HERE
+  
   /* KMEANS ALGORITHM */
   // inspired by pseudocode from:
   // stanford.edu/~cpiech/cs221/handouts/kmeans.html
@@ -55,6 +56,7 @@ int main(){
   centroid *cluster1 = get_random_centroid();
   centroid *cluster2 = get_random_centroid();
   centroid *cluster3 = get_random_centroid();
+  cout << "initialized centroids\n";  //DEBUG
   
   // initialize book-keeping variables
   vector<centroid> oldCentroids;
@@ -66,15 +68,17 @@ int main(){
     oldCentroids.push_back(*cluster1);
     oldCentroids.push_back(*cluster2);
     oldCentroids.push_back(*cluster3);
-   
+    cout << "pushed old centroids\n";  //DEBUG
+    
     // // assign labels to each datapoint based on centroids
     assign_pts(list, cluster1, cluster2, cluster3);
-    
+
+    cout << "assigned the points\n"; //DEBUG
     // // assign centroids based on datapoint labels
     cluster1 = calculate_centroid(cluster1);
     cluster2 = calculate_centroid(cluster2);
     cluster3 = calculate_centroid(cluster3);
-
+    cout << "set new clusters\n";  //DEBUG
     iterations++;
   }
 }
