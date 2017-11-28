@@ -38,15 +38,18 @@ centroid* get_random_centroid(){
 void assign_pts(vector<vector<string> > data, centroid *c1, centroid *c2, centroid *c3){
   // for each item in data, calculate its distance from each centroid and
   // add that item to the vector contained in the centroid it is closest to
+  unsigned int i;
 
-  for(int i = 0; i < data.size(); i++){
+  for(i = 0; i < data.size(); i++){
     double d1;
     double d2;
     double d3;
     
     // calculate distance from each centroid
+    printf()
     double len = atof(data[i][2].c_str());
     double wid = atof(data[i][2].c_str());
+
     d1 = sqrt(pow((len - c1->x), 2) + pow((wid - c1->y), 2));
     d2 = sqrt(pow((len - c2->x), 2) + pow((wid - c2->y), 2));
     d3 = sqrt(pow((len - c3->x), 2) + pow((wid - c3->y), 2));
@@ -71,8 +74,9 @@ centroid * calculate_centroid(centroid *c){
   centroid *cent = new centroid();
   double x_mean = 0;
   double y_mean = 0;
-  
-  for(int i = 0; i < c->elements.size(); i++){
+  unsigned int i;
+
+  for(i = 0; i < c->elements.size(); i++){
     x_mean += atof(c->elements[i][2].c_str());
     y_mean += atof(c->elements[i][3].c_str());
   }
