@@ -26,4 +26,6 @@ void assign_pts(vector<vector<string> > data, centroid c1, centroid c2, centroid
 
 centroid * calculate_centroid(centroid *c);
 
+void print_cluster(centroid * c);
+
 #endif
