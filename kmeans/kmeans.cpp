@@ -2,6 +2,8 @@
 #include <fstream>
 #include <vector>
 #include <iostream>
+#include "kfunctions.h"
+#include "kfunctions.cpp"
 
 using namespace std;
 using std::vector;
@@ -12,10 +14,11 @@ int main(){
   ifstream data;
   data.open("iris.data");
 
-  if(!data){                                   //terminate if error opening file
+  if(!data){                       //terminate if error opening file
     cout << "Unable to open file\n";
     exit(1); 
   }
+
 
   //arraylist of flowers goes here
   vector<vector<string> > list;  
@@ -38,31 +41,51 @@ int main(){
     // for adding the species name to vector item
     token = line;
     flower.push_back(token);
-    
     list.push_back(flower);
-    
   }
-  data.close();
 
+  data.close(); 
+  //DEBUGGED UP TO HERE
+  
   /* KMEANS ALGORITHM */
   // inspired by pseudocode from:
   // stanford.edu/~cpiech/cs221/handouts/kmeans.html
+  // trying to get species clusterong on petal length & petal width
 
   // initialize centroids randomly
-  centroid cluster1;
-  centroid cluster2;
-  centroid cluster3;
+  centroid *cluster1 = get_random_centroid();
+  centroid *cluster2 = get_random_centroid();
+  centroid *cluster3 = get_random_centroid();
   
   // initialize book-keeping variables
   vector<centroid> oldCentroids;
   int iterations = 0;
 
   // running the algorithm
-  // // save old centroids for convergence test
-  //
-  // // assign labels to each datapoint based on centroids
-  //
-  // // assign centroids based on datapoint labels
-  
-  
+  while(iterations < 20) { //need to figure out how to know when we're done
+    // // save old centroids for convergence test
+    oldCentroids.push_back(*cluster1);
+    oldCentroids.push_back(*cluster2);
+    oldCentroids.push_back(*cluster3);
+    
+    // // assign labels to each datapoint based on centroids
+    assign_pts(list, cluster1, cluster2, cluster3);
+
+
+    //PRINT CLUSTERS OUT (for visualization)
+    cout << "Cluster 1: \n";
+    print_cluster(cluster1);
+    cout << "Cluster 2: \n";
+    print_cluster(cluster2);
+    cout << "Cluster 3: \n";
+    print_cluster(cluster3);
+
+    
+    // // assign centroids based on datapoint labels
+    cluster1 = calculate_centroid(cluster1);
+    cluster2 = calculate_centroid(cluster2);
+    cluster3 = calculate_centroid(cluster3);
+    
+    iterations++;
+  }
 }
