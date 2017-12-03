@@ -11,102 +11,91 @@
 
 using namespace std;
 
-double getGain(vector<vector<double>> data,vector<int> count);
-double getEntropy(vector<vector<double>> data,vector<int> count);
+class entry{
+public:
+	vector<double> attributes;
+	int type;
+};
 
-int main()
-{
-    ifstream dataset;
-    dataset.open("../iris.data");
-    string line;
-    if (dataset.is_open()) {
+class node{
+public:
+	int attributeIndex;
+	double median;
+	node left;
+	node right;
+};
 
-        int key_flag = 0;
-        int key = 0;
-        int num_key = -1;
-        string temp;
-        vector<string> key_vector;
-        vector<vector<double>> data;
-        vector<int> key_num;
-        while (!dataset.eof()) {
-            vector<double> each;
-            getline(dataset, line);
-            size_t pos = 0;
-            string token;
-            string delimiter = ",";
-            int deli = 0;
-            while((pos = line.find(delimiter)) != string::npos){
-                token = line.substr(0,pos);
-                each.push_back(stod(token, NULL));
-                //each.push_back(token);
-                line.erase(0,pos+delimiter.length());
-                deli = 1;
-            }
+int typeCount;
+int curAttIndex;
+node root;
 
-            if(key_flag==0){
-                num_key++;
-                temp = line;
-                key = 0;
-                key_flag = 1;
-                key_vector.push_back(line);
-            }
-            if(line != temp){
-                temp = line;
-                key++;
-                key_vector.push_back(line);
-                key_num.push_back(num_key);
-                num_key = 1;
-            }
-            else{
-                num_key++;
-            }
-            if(deli == 1) {
-                each.push_back(key);
-                data.push_back(each);
-            }
-
-
-        }
-        for(int j = 0; j < (int)data.size(); j++){
-            for(int i = 0; i < (int)data[j].size(); i++){
-                cout << data[j][i] << " ";
-            }
-            cout << endl;
-        }
-
-        for(int i = 0; i < (int) key_vector.size(); i++){
-            cout << key_vector[i] << " ";
-        }
-        cout << endl;
-
-        for(int i = 0; i < (int) key_num.size(); i++){
-            cout << key_num[i] << " ";
-        }
-        //hahahhaha
-   }
-   else{
-        cout << "fail" << endl;
-   }
-   dataset.close();
-   return 0;
-
-
-}
-
-double getGain(vector<vector<double>> data,vector<int> count,int attribute){
-	double entropy=getEntropy(data,count);
-	double gain=entropy;
-	double value=1;
-	for(int i=0;i<data.size();i++){
-		data[i][attribute];
+void buildTree(vector<entry> &set, node &root){
+	if(diff(set)){
+		int attIndex=0;
+		double gainMax=0;
+		for(int i=0;i<set[0].attributes.size();i++){
+			curAttIndex=i;
+			double gain=getGain(set,i);
+			if(gain>gainMax){
+				gain=gainMax;
+				attIndex=i;
+			}
+		}
+		curAttIndex=attIndex;
+		vector<entry> sub1,sub2=getSubSet(set);
+		node left,right;
+		left.attributeIndex=curAttIndex;
+		right.attributeIndex=curAttIndex;
+		root.left=left;
+		root.right=right;
+		root.median=sub2[0].attributes[curAttIndex];
+		buildTree(sub1,left);
+		buildTree(sub2,right);
 	}
 }
 
-double getEntropy(vector<vector<double>> data,vector<int> count){
-	double entropy=0.0;
-	for(int i=0;i<count.size();i++){
-		entropy-=vector[i]/data.size()*log2((double)vector[i]/data.size());
+bool diff(vector<entry> &set){
+	int type=set[0].type;
+	for(entry i:set){
+		if(i.type!=type){
+			return true;
+		}
 	}
+	return false;
 }
 
+double getEntropy(vector<entry> &set, int attIndex){
+	double entropy=0;
+	vector<int> count (typeCount);
+	for(entry i :set){
+		count[i.type]++;
+	}
+	for(int n:count){
+		entropy-=(n/set.size())*log2(n/set.size());
+	}
+	return entropy;
+}
 
+double getGain(vector<entry> &set, int attIndex){
+	double infoGain=getEntropy(set,attIndex);
+	sort(set.begin(),set.end(),entryCmp);
+	vector<entry> sub1,sub2=getSubSet(set);
+	infoGain=infoGain-(sub1.size()/set.size())*getEntropy(sub1,attIndex)-(sub2.size()/set.size())*getEntropy(sub2,attIndex);
+	return infoGain;
+}
+
+double getSubSet(vector<entry> &set){
+	vector<entry> sub1,sub2;
+	for(int i=0;i<set.size();i++){
+		if(i<=set.size()/2){
+			sub1.push_back(set[i]);
+		}else{
+			sub2.push_back(set[i]);
+		}
+	}
+	return sub1,sub2;
+}
+
+bool entryCmp(entry e1,entry e2){
+	return e1.attributes[curAttIndex]<e2.attributes[curAttIndex];
+}
