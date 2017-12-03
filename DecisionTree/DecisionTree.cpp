@@ -29,10 +29,10 @@ int main()
     if (dataset.is_open()) {
        vector<entry> data;
        read_data(dataset, data);
-       for(int i = 0; i < (int)data.size(); i++){
+       /*for(int i = 0; i < (int)data.size(); i++){
            cout << data[i].attributes[0] << " "<< data[i].attributes[1] << " " << data[i].attributes[2] << " " ;
            cout << data[i].num_type << " "<< data[i].type << endl;
-       }
+       }*/
     }
     else{
          cout << "fail" << endl;
