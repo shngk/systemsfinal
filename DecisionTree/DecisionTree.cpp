@@ -75,25 +75,6 @@ void read_data(ifstream &dataset, vector<entry> &data){
     }
 }
 
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <map>
-#include <array>
-#include <vector>
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-
-using namespace std;
-
-class entry{
-public:
-	vector<double> attributes;
-	int type;
-};
-
 class node{
 public:
 	int attributeIndex;
