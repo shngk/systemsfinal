@@ -17,7 +17,7 @@ struct entry{
     vector<double> attributes;
 };
 
-void read_data(ifstream &dataset, vector<entry> &data);
+void read_data(ifstream &dataset, vector<entry*> &data);
 
 
 
@@ -27,11 +27,11 @@ int main()
     dataset.open("../iris.data");
 
     if (dataset.is_open()) {
-       vector<entry> data;
+       vector<entry*> data;
        read_data(dataset, data);
        /*for(int i = 0; i < (int)data.size(); i++){
-           cout << data[i].attributes[0] << " "<< data[i].attributes[1] << " " << data[i].attributes[2] << " " ;
-           cout << data[i].num_type << " "<< data[i].type << endl;
+           cout << data[i]->attributes[0] << " "<< data[i]->attributes[1] << " " << data[i]->attributes[2] << " " ;
+           cout << data[i]->num_type << " "<< data[i]->type << endl;
        }*/
     }
     else{
@@ -43,7 +43,7 @@ int main()
 
 }
 
-void read_data(ifstream &dataset, vector<entry> &data){
+void read_data(ifstream &dataset, vector<entry*> &data){
 
 
     int num = 0;
@@ -55,27 +55,27 @@ void read_data(ifstream &dataset, vector<entry> &data){
         getline(dataset, line);
         size_t pos = 0;
 
-         entry new_row;
+         entry* new_row = new entry;
          while((pos = line.find(delimiter)) != string::npos){
               token = line.substr(0,pos);
               double d = stod(token, NULL);
-              new_row.attributes.push_back(d);
+              new_row->attributes.push_back(d);
               line.erase(0,pos+delimiter.length());
 
          }
 
 
 
-         if(data.size() != 0 && data[data.size()-1].type != line){
+         if(data.size() != 0 && data[data.size()-1]->type != line){
              num++;
          }
-         new_row.type = line;
-         new_row.num_type = num;
+         new_row->type = line;
+         new_row->num_type = num;
          data.push_back(new_row);
     }
 }
 
-class node{
+/*class node{
 public:
 	int attributeIndex;
 	double median;
@@ -157,5 +157,5 @@ double getSubSet(vector<entry> &set){
 
 bool entryCmp(entry e1,entry e2){
 	return e1.attributes[curAttIndex]<e2.attributes[curAttIndex];
-}
+}*/
 
