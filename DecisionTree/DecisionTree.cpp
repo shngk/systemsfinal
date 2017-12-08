@@ -50,7 +50,7 @@ vector< vector<entry*> > getSubSet(vector<entry*> &set);
 int main()
 {
     ifstream dataset;
-    dataset.open("./DecisionTree/test.data");
+    dataset.open("../DecisionTree/test.data");
     if (dataset.is_open()) {
        vector<entry*> data;
        read_data(dataset, data);
@@ -80,18 +80,18 @@ void read_data(ifstream &dataset, vector<entry*> &data){
         size_t pos = 0;
         entry* new_row = new entry;
         if(line[0] != 0){
-         while((pos = line.find(delimiter)) != string::npos){
+            while((pos = line.find(delimiter)) != string::npos){
               token = line.substr(0,pos);
               double d = stod(token, NULL);
               new_row->attributes.push_back(d);
               line.erase(0,pos+delimiter.length());
-         }
-         if(data.size() != 0 && data[data.size()-1]->type != line){
+            }
+            if(data.size() != 0 && data[data.size()-1]->type != line){
              num++;
-         }
-         new_row->type = line;
-         new_row->num_type = num;
-         data.push_back(new_row);
+            }
+            new_row->type = line;
+            new_row->num_type = num;
+            data.push_back(new_row);
         }
 
     }
