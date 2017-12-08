@@ -95,7 +95,8 @@ void buildTree(vector<entry*> &set, node* root){
 			curAttIndex=i;
 			//cout << curAttIndex << endl;
 			double gain=getGain(set,i);
-			//cout << gain << endl;
+			cout << "gain: ";
+			cout <<gain<<endl;
 			if(gain>gainMax){
 				gain=gainMax;
 				attIndex=i;
@@ -103,7 +104,7 @@ void buildTree(vector<entry*> &set, node* root){
 		}
 		//cout << attIndex << endl;
 		//cout << gainMax << endl;
-		curAttIndex=attIndex;
+		/*curAttIndex=attIndex;
 		vector< vector<entry*> > temp=getSubSet(set);
 		vector<entry*> sub1=temp[0];
 		vector<entry*> sub2=temp[1];
@@ -115,7 +116,7 @@ void buildTree(vector<entry*> &set, node* root){
 		root->right=right;
 		root->median=sub2[0]->attributes[curAttIndex];
 		buildTree(sub1,left);
-		buildTree(sub2,right);
+		buildTree(sub2,right);*/
 	}
 }
 
@@ -134,17 +135,17 @@ double getGain(vector<entry*> &set, int attIndex){
 	/*for(int i=0;i<set.size();i++){
 		cout << set[i].attributes[curAttIndex] << endl;
 	}*/
-	//sort(set.begin(),set.end(),entryCmp);
+	sort(set.begin(),set.end(),entryCmp);
 	/*cout << "sorted" << endl;
 	for(int i=0;i<set.size();i++){
 			cout << set[i].attributes[curAttIndex] << endl;
 		}*/
-	vector< vector<entry*> > temp=getSubSet(set);
-	vector<entry*> sub1=temp[0];
-	vector<entry*> sub2=temp[1];
+	//vector< vector<entry*> > temp=getSubSet(set);
+	//vector<entry*> sub1=temp[0];
+	//vector<entry*> sub2=temp[1];
 	//cout << sub1.size() << endl;
 	//cout << sub2.size() << endl;
-	infoGain=infoGain-(sub1.size()/set.size())*getEntropy(sub1)-(sub2.size()/set.size())*getEntropy(sub2);
+	//infoGain=infoGain-(sub1.size()/set.size())*getEntropy(sub1)-(sub2.size()/set.size())*getEntropy(sub2);
 	//cout << infoGain << endl;
 	return infoGain;
 }
@@ -159,9 +160,9 @@ double getEntropy(vector<entry*> &set){
 		cout << count[i] << endl;
 		entropy-=((double)count[i]/set.size())*log2((double)count[i]/set.size());
 	}
+	cout << "getting entropy" << endl;
+	cout << entropy << endl;
 	cout << "" << endl;
-	//cout << "getting entropy" << endl;
-	//cout << entropy << endl;
 	return entropy;
 }
 
@@ -183,9 +184,9 @@ vector< vector<entry*> > getSubSet(vector<entry*> &set){
 }
 
 bool entryCmp(entry* e1,entry* e2){
-	//cout << "compare" << endl;
-	//cout << e1->attributes[curAttIndex] << endl;
-	//cout << e2->attributes[curAttIndex] << endl;
+	cout << "compare" << endl;
+	cout << e1->attributes[curAttIndex] << endl;
+	cout << e2->attributes[curAttIndex] << endl;
 	return (bool)(e1->attributes[curAttIndex]<e2->attributes[curAttIndex]);
 }
 
