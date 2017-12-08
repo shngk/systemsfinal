@@ -11,6 +11,8 @@
 
 using namespace std;
 
+
+
 class entry{
 public:
     string type;
@@ -26,6 +28,19 @@ public:
 	node* right;
 };
 
+int typeCount;
+int curAttIndex;
+node root;
+
+struct entrycmp{
+    bool operator() (const entry *e1, const entry *e2){
+       cout << "compare" << endl;
+       cout << e1->attributes[curAttIndex] << endl;
+       cout << e2->attributes[curAttIndex] << endl;
+       return (e1->attributes[curAttIndex] < e2->attributes[curAttIndex]);
+    }
+};
+
 void read_data(ifstream &dataset, vector<entry*> &data);
 double getGain(vector<entry*> &set, int attIndex);
 bool entryCmp(entry* e1,entry* e2);
@@ -34,9 +49,6 @@ bool diff(vector<entry*> &set);
 void buildTree(vector<entry*> &set, node* root);
 vector< vector<entry*> > getSubSet(vector<entry*> &set);
 
-int typeCount;
-int curAttIndex;
-node root;
 
 int main()
 {
@@ -135,7 +147,12 @@ double getGain(vector<entry*> &set, int attIndex){
 	/*for(int i=0;i<set.size();i++){
 		cout << set[i].attributes[curAttIndex] << endl;
 	}*/
-	sort(set.begin(),set.end(),entryCmp);
+    /*for(int i = 0; i < (int)set.size(); i++){
+        cout << set[i]->attributes[0] << " "<< set[i]->attributes[1] << " " << set[i]->attributes[2] << " " ;
+        cout << set[i]->num_type << " "<< set[i]->type << endl;
+    }*/
+
+    stable_sort(set.begin(), set.end(), entrycmp());
 	/*cout << "sorted" << endl;
 	for(int i=0;i<set.size();i++){
 			cout << set[i].attributes[curAttIndex] << endl;
@@ -184,12 +201,15 @@ vector< vector<entry*> > getSubSet(vector<entry*> &set){
 	return ret;
 }
 
-bool entryCmp(entry* e1,entry* e2){
-	cout << "compare" << endl;
-	cout << e1->attributes[curAttIndex] << endl;
-	cout << e2->attributes[curAttIndex] << endl;
-	return (bool)(e1->attributes[curAttIndex]<e2->attributes[curAttIndex]);
+bool entryCmp(entry *e1,entry *e2){
+    cout << "compare" << endl;
+    cout << e1->attributes[curAttIndex] << endl;
+    cout << e2->attributes[curAttIndex] << endl;
+    return (bool)(e1->attributes[curAttIndex] < e2->attributes[curAttIndex]);
 }
+
+
+
 
 
 
