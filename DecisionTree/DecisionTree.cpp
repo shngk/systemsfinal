@@ -23,6 +23,7 @@ class node{
 public:
 	int attributeIndex;
 	double median;
+	string type;
 	node* left;
 	node* right;
 };
@@ -144,6 +145,8 @@ void buildTree(vector<entry*> &set, node* root){
 		root->median=sub2[0]->attributes[curAttIndex];
 		buildTree(sub1,left);
 		buildTree(sub2,right);
+	}else{
+		root->type=set[0]->type;
 	}
 }
 
