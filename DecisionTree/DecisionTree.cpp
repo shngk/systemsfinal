@@ -34,7 +34,7 @@ public:
 
 void read_data(ifstream &dataset, vector<entry*> &data);
 double getGain(vector<entry*> &set, int attIndex);
-bool entryCmp(entry e1,entry e2);
+bool entryCmp(entry* e1,entry* e2);
 double getEntropy(vector<entry*> &set, int attIndex);
 bool diff(vector<entry*> &set);
 void buildTree(vector<entry*> &set, node* root);
@@ -97,7 +97,7 @@ void buildTree(vector<entry*> &set, node* root){
 	if(diff(set)){
 		int attIndex=0;
 		double gainMax=0;
-		for(int i=0;i<set[0]->attributes.size();i++){
+        for(int i=0;i<(int) set[0]->attributes.size();i++){
 			curAttIndex=i;
 			//cout << curAttIndex << endl;
 			double gain=getGain(set,i);
@@ -125,7 +125,7 @@ void buildTree(vector<entry*> &set, node* root){
 
 bool diff(vector<entry*> &set){
 	int type=set[0]->num_type;
-	for(int i=0;i<set.size();i++){
+    for(int i=0;i< (int) set.size();i++){
 		if(set[i]->num_type!=type){
 			return true;
 		}
@@ -151,13 +151,13 @@ double getGain(vector<entry*> &set, int attIndex){
 	return infoGain;
 }
 
-double getEntropy(vector<entry*> &set, int attIndex){
+double getEntropy(vector<entry*> &set){
 	double entropy=0;
 	vector<int> count (typeCount);
-	for(int i=0;i<set.size();i++){
+    for(int i=0;i< (int) set.size();i++){
 		count[set[i]->num_type]++;
 	}
-	for(int i=0;i<count.size();i++){
+    for(int i=0;i<(int)count.size();i++){
 		entropy-=((double)count[i]/set.size())*log2((double)count[i]/set.size());
 	}
 	return entropy;
@@ -165,10 +165,10 @@ double getEntropy(vector<entry*> &set, int attIndex){
 
 vector<entry*> getSubSet(vector<entry*> &set){
 	//cout << "getting subSet" << endl;
-	vector<entry*> sub1=new vector<entry*>;
-	vector<entry*> sub2=new vector<entry*>;
-	for(int i=0;i<set.size();i++){
-		if(i<=set.size()/2){
+    vector<entry*> sub1;
+    vector<entry*> sub2;
+    for(int i=0;i<(int) set.size();i++){
+        if(i<=(int)set.size()/2){
 			sub1.push_back(set[i]);
 		}else{
 			sub2.push_back(set[i]);
