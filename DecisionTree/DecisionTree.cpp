@@ -50,7 +50,7 @@ vector< vector<entry*> > getSubSet(vector<entry*> &set);
 int main()
 {
     ifstream dataset;
-    dataset.open("../DecisionTree/test.data");
+    dataset.open("../DecisionTree/iris.data");
     if (dataset.is_open()) {
        vector<entry*> data;
        read_data(dataset, data);
@@ -79,6 +79,7 @@ void read_data(ifstream &dataset, vector<entry*> &data){
         getline(dataset, line);
         size_t pos = 0;
         entry* new_row = new entry;
+
         if(line[0] != 0){
             while((pos = line.find(delimiter)) != string::npos){
               token = line.substr(0,pos);
@@ -92,6 +93,7 @@ void read_data(ifstream &dataset, vector<entry*> &data){
             new_row->type = line;
             new_row->num_type = num;
             data.push_back(new_row);
+
         }
 
     }
@@ -101,11 +103,21 @@ void read_data(ifstream &dataset, vector<entry*> &data){
 
 void buildTree(vector<entry*> &set, node* root){
 	if(diff(set)){
+
+        /*for(int i = 0; i < (int)set.size(); i++){
+            cout << set[i]->attributes[0] << " "<< set[i]->attributes[1] << " " << set[i]->attributes[2] << " " ;
+            cout << set[i]->num_type << " "<< set[i]->type << endl;
+        }*/
+
 		int attIndex=0;
 		double gainMax=0;
         for(int i=0;i<(int) set[0]->attributes.size();i++){
 			curAttIndex=i;
 			//cout << curAttIndex << endl;
+            /*for(int i = 0; i < (int)set.size(); i++){
+                cout << set[i]->attributes[0] << " "<< set[i]->attributes[1] << " " << set[i]->attributes[2] << " " ;
+                cout << set[i]->num_type << " "<< set[i]->type << endl;
+            }*/
 			double gain=getGain(set,i);
 			//cout << "gain: ";
 			//cout <<gain<<endl;
@@ -147,6 +159,7 @@ double getGain(vector<entry*> &set, int attIndex){
 	/*for(int i=0;i<set.size();i++){
 		cout << set[i].attributes[curAttIndex] << endl;
 	}*/
+
     /*for(int i = 0; i < (int)set.size(); i++){
         cout << set[i]->attributes[0] << " "<< set[i]->attributes[1] << " " << set[i]->attributes[2] << " " ;
         cout << set[i]->num_type << " "<< set[i]->type << endl;
@@ -154,10 +167,10 @@ double getGain(vector<entry*> &set, int attIndex){
 
     stable_sort(set.begin(), set.end(), entrycmp());
 
-    cout << "sorted" << endl;
+    /*cout << "sorted" << endl;
 	for(int i=0;i<set.size();i++){
 			cout << set[i]->attributes[curAttIndex] << endl;
-	}
+    }*/
 	vector< vector<entry*> > temp=getSubSet(set);
 	vector<entry*> sub1=temp[0];
 	vector<entry*> sub2=temp[1];
