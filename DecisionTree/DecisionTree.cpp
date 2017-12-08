@@ -29,7 +29,7 @@ public:
 void read_data(ifstream &dataset, vector<entry*> &data);
 double getGain(vector<entry*> &set, int attIndex);
 bool entryCmp(entry* e1,entry* e2);
-double getEntropy(vector<entry*> &set, int attIndex);
+double getEntropy(vector<entry*> &set);
 bool diff(vector<entry*> &set);
 void buildTree(vector<entry*> &set, node* root);
 vector< vector<entry*> > getSubSet(vector<entry*> &set);
@@ -130,7 +130,7 @@ bool diff(vector<entry*> &set){
 }
 
 double getGain(vector<entry*> &set, int attIndex){
-	double infoGain=getEntropy(set,attIndex);
+	double infoGain=getEntropy(set);
 	/*for(int i=0;i<set.size();i++){
 		cout << set[i].attributes[curAttIndex] << endl;
 	}*/
@@ -144,7 +144,7 @@ double getGain(vector<entry*> &set, int attIndex){
 	vector<entry*> sub2=temp[1];
 	//cout << sub1.size() << endl;
 	//cout << sub2.size() << endl;
-	infoGain=infoGain-(sub1.size()/set.size())*getEntropy(sub1,attIndex)-(sub2.size()/set.size())*getEntropy(sub2,attIndex);
+	infoGain=infoGain-(sub1.size()/set.size())*getEntropy(sub1)-(sub2.size()/set.size())*getEntropy(sub2);
 	//cout << infoGain << endl;
 	return infoGain;
 }
