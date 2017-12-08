@@ -11,7 +11,8 @@
 
 using namespace std;
 
-struct entry{
+class entry{
+public:
     string type;
     int num_type;
     vector<double> attributes;
@@ -50,8 +51,12 @@ int main()
     if (dataset.is_open()) {
        vector<entry*> data;
        read_data(dataset, data);
-       node root;
-       buildTree(data, &root);
+       node *root=new node;
+       buildTree(data, root);
+       /*for(int i = 0; i < (int)data.size(); i++){
+           cout << data[i]->attributes[0] << " "<< data[i]->attributes[1] << " " << data[i]->attributes[2] << " " ;
+           cout << data[i]->num_type << " "<< data[i]->type << endl;
+       }*/
     }
     else{
          cout << "fail" << endl;
@@ -70,7 +75,7 @@ void read_data(ifstream &dataset, vector<entry*> &data){
         string delimiter = ",";
         getline(dataset, line);
         size_t pos = 0;
-         entry* new_row=new entry;
+        entry* new_row = new entry;
          while((pos = line.find(delimiter)) != string::npos){
               token = line.substr(0,pos);
               double d = stod(token, NULL);
@@ -87,7 +92,8 @@ void read_data(ifstream &dataset, vector<entry*> &data){
     typeCount=num;
 }
 
-void buildTree(vector<entry*> &set, node *root){
+
+void buildTree(vector<entry*> &set, node* root){
 	if(diff(set)){
 		int attIndex=0;
 		double gainMax=0;
@@ -95,7 +101,7 @@ void buildTree(vector<entry*> &set, node *root){
 			curAttIndex=i;
 			//cout << curAttIndex << endl;
 			double gain=getGain(set,i);
-			//cout << gain << endl;
+			cout << gain << endl;
 			if(gain>gainMax){
 				gain=gainMax;
 				attIndex=i;
@@ -138,10 +144,10 @@ double getGain(vector<entry*> &set, int attIndex){
 			cout << set[i].attributes[curAttIndex] << endl;
 		}*/
 	vector<entry*> sub1,sub2=getSubSet(set);
-	cout << sub1.size() << endl;
-	cout << sub2.size() << endl;
+	//cout << sub1.size() << endl;
+	//cout << sub2.size() << endl;
 	infoGain=infoGain-(sub1.size()/set.size())*getEntropy(sub1,attIndex)-(sub2.size()/set.size())*getEntropy(sub2,attIndex);
-	cout << infoGain << endl;
+	//cout << infoGain << endl;
 	return infoGain;
 }
 
@@ -158,8 +164,9 @@ double getEntropy(vector<entry*> &set, int attIndex){
 }
 
 vector<entry*> getSubSet(vector<entry*> &set){
-	cout << "getting subSet" << endl;
-	vector<entry*> sub1,sub2;
+	//cout << "getting subSet" << endl;
+	vector<entry*> sub1=new vector<entry*>;
+	vector<entry*> sub2=new vector<entry*>;
 	for(int i=0;i<set.size();i++){
 		if(i<=set.size()/2){
 			sub1.push_back(set[i]);
@@ -171,9 +178,9 @@ vector<entry*> getSubSet(vector<entry*> &set){
 }
 
 bool entryCmp(entry* e1,entry* e2){
-	cout << "compare" << endl;
-	cout << e1->attributes[curAttIndex] << endl;
-	cout << e2->attributes[curAttIndex] << endl;
+	//cout << "compare" << endl;
+	//cout << e1->attributes[curAttIndex] << endl;
+	//cout << e2->attributes[curAttIndex] << endl;
 	return (bool)(e1->attributes[curAttIndex]<e2->attributes[curAttIndex]);
 }
 
