@@ -50,7 +50,9 @@ vector< vector<entry*> > getSubSet(vector<entry*> &set);
 int main()
 {
     ifstream dataset;
+
     dataset.open("../DecisionTree/iris.data");
+
     if (dataset.is_open()) {
        vector<entry*> data;
        read_data(dataset, data);
@@ -95,7 +97,6 @@ void read_data(ifstream &dataset, vector<entry*> &data){
             data.push_back(new_row);
 
         }
-
     }
     typeCount=num;
 }
@@ -122,13 +123,14 @@ void buildTree(vector<entry*> &set, node* root){
 			//cout << "gain: ";
 			//cout <<gain<<endl;
 			if(gain>gainMax){
-				gain=gainMax;
+				gainMax=gain;
 				attIndex=i;
 			}
 		}
 		//cout << attIndex << endl;
 		//cout << gainMax << endl;
-		/*curAttIndex=attIndex;
+		curAttIndex=attIndex;
+		stable_sort(set.begin(), set.end(), entrycmp());
 		vector< vector<entry*> > temp=getSubSet(set);
 		vector<entry*> sub1=temp[0];
 		vector<entry*> sub2=temp[1];
@@ -140,7 +142,7 @@ void buildTree(vector<entry*> &set, node* root){
 		root->right=right;
 		root->median=sub2[0]->attributes[curAttIndex];
 		buildTree(sub1,left);
-		buildTree(sub2,right);*/
+		buildTree(sub2,right);
 	}
 }
 
@@ -165,17 +167,21 @@ double getGain(vector<entry*> &set, int attIndex){
         cout << set[i]->num_type << " "<< set[i]->type << endl;
     }*/
 
+	//cout<<set.size()<<endl;
     stable_sort(set.begin(), set.end(), entrycmp());
 
-    /*cout << "sorted" << endl;
-	for(int i=0;i<set.size();i++){
+
+    //cout<<set.size()<<endl;
+    //cout << "sorted" << endl;
+	/*for(int i=0;i<set.size();i++){
 			cout << set[i]->attributes[curAttIndex] << endl;
-    }*/
+	}*/
+
 	vector< vector<entry*> > temp=getSubSet(set);
 	vector<entry*> sub1=temp[0];
 	vector<entry*> sub2=temp[1];
-	//infoGain=infoGain-((double)sub1.size()/set.size())*getEntropy(sub1)-((double)sub2.size()/set.size())*getEntropy(sub2);
-	cout << getEntropy(sub2) << endl;
+	infoGain=infoGain-((double)sub1.size()/set.size())*getEntropy(sub1)-((double)sub2.size()/set.size())*getEntropy(sub2);
+	//cout << infoGain << endl;
 	return infoGain;
 }
 
@@ -187,8 +193,9 @@ double getEntropy(vector<entry*> &set){
 	}
 
     for(int i=0;i<(int)count.size();i++){
-		//cout << count[i] << endl;
-		entropy-=((double)count[i]/set.size())*log2((double)count[i]/set.size());
+    	if(count[i]!=0){
+		entropy=entropy-((double)count[i]/(int)set.size())*log2((double)count[i]/(int)set.size());
+    	}
 	}
 	//cout << "getting entropy" << endl;
 	//cout << entropy << endl;
