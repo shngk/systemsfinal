@@ -41,7 +41,7 @@ node root;
 int main()
 {
     ifstream dataset;
-    dataset.open("./DecisionTree/iris.data");
+    dataset.open("../DecisionTree/iris.data");
     if (dataset.is_open()) {
        vector<entry*> data;
        read_data(dataset, data);
