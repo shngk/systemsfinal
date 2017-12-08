@@ -34,9 +34,9 @@ node root;
 
 struct entrycmp{
     bool operator() (const entry *e1, const entry *e2){
-       cout << "compare" << endl;
+       /*cout << "compare" << endl;
        cout << e1->attributes[curAttIndex] << endl;
-       cout << e2->attributes[curAttIndex] << endl;
+       cout << e2->attributes[curAttIndex] << endl;*/
        return (e1->attributes[curAttIndex] < e2->attributes[curAttIndex]);
     }
 };
@@ -82,6 +82,7 @@ void read_data(ifstream &dataset, vector<entry*> &data){
         getline(dataset, line);
         size_t pos = 0;
         entry* new_row = new entry;
+        if(line[0] != 0){
          while((pos = line.find(delimiter)) != string::npos){
               token = line.substr(0,pos);
               double d = stod(token, NULL);
@@ -94,6 +95,8 @@ void read_data(ifstream &dataset, vector<entry*> &data){
          new_row->type = line;
          new_row->num_type = num;
          data.push_back(new_row);
+        }
+
     }
     typeCount=num;
 }
@@ -153,10 +156,12 @@ double getGain(vector<entry*> &set, int attIndex){
     }*/
 
     stable_sort(set.begin(), set.end(), entrycmp());
-	/*cout << "sorted" << endl;
+
+    cout << "sorted" << endl;
 	for(int i=0;i<set.size();i++){
-			cout << set[i].attributes[curAttIndex] << endl;
-		}*/
+            cout << set[i]->attributes[curAttIndex] << endl;
+    }
+
 	//vector< vector<entry*> > temp=getSubSet(set);
 	//vector<entry*> sub1=temp[0];
 	//vector<entry*> sub2=temp[1];
