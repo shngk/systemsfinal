@@ -9,9 +9,8 @@
 #include <stdlib.h>
 #include <math.h>
 
+
 using namespace std;
-
-
 
 class entry{
 public:
@@ -58,6 +57,8 @@ int main()
        read_data(dataset, data);
        node *root=new node;
        buildTree(data, root);
+
+
        /*for(int i = 0; i < (int)data.size(); i++){
            cout << data[i]->attributes[0] << " "<< data[i]->attributes[1] << " " << data[i]->attributes[2] << " " ;
            cout << data[i]->num_type << " "<< data[i]->type << endl;
@@ -228,8 +229,6 @@ bool entryCmp(entry *e1,entry *e2){
     return (bool)(e1->attributes[curAttIndex] < e2->attributes[curAttIndex]);
 }
 */
-
-
 
 
 
