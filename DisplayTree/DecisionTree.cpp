@@ -9,6 +9,8 @@
 #include <stdlib.h>
 #include <math.h>
 
+#include "DisplayTree.h"
+#include <QApplication>
 
 
 

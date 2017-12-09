@@ -62,7 +62,7 @@ int main(){
        /*for(int i = 0; i < (int)data.size(); i++){
            cout << data[i]->attributes[0] << " "<< data[i]->attributes[1] << " " << data[i]->attributes[2] << " " ;
            cout << data[i]->num_type << " "<< data[i]->type << endl;
-       }
+       }*/
 
 
        node *root = new node;
