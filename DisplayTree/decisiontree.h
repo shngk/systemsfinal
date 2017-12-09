@@ -16,8 +16,6 @@
 
 #include <QApplication>
 
-
-
 using namespace std;
 
 class entry{

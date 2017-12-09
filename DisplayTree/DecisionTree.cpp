@@ -15,26 +15,6 @@
 
 using namespace std;
 
-class entry{
-public:
-    string type;
-    int num_type;
-    vector<double> attributes;
-};
-
-node root;
-int typeCount;
-int curAttIndex;
-
-struct entrycmp{
-    bool operator() (const entry *e1, const entry *e2){
-        //cout << "compare" << endl;
-        //cout << e1->attributes[curAttIndex] << endl;
-        //cout << e2->attributes[curAttIndex] << endl;
-       return (e1->attributes[curAttIndex] < e2->attributes[curAttIndex]);
-    }
-};
-
 void read_data(ifstream &dataset, vector<entry*> &data);
 double getGain(vector<entry*> &set);
 //bool entryCmp(entry* e1,entry* e2);
@@ -45,7 +25,7 @@ vector< vector<entry*> > getSubSet(vector<entry*> &set);
 void printSet(vector<entry *> &set);
 
 
-int main(int argc, char *argv[]){
+int main(){
     ifstream dataset;
     dataset.open("../DecisionTree/iris.data");
     if (dataset.is_open()) {

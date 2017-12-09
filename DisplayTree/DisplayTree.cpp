@@ -20,7 +20,6 @@ MainWindow::~MainWindow()
 
 void QWidget::paintEvent(QPaintEvent*){
     QPainter p;
-    std::cout<<r.median<<endl;
     p.begin(this);
     p.end();
 }
