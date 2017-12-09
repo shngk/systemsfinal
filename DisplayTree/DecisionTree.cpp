@@ -68,7 +68,6 @@ int main(int argc, char *argv[]){
        w.show();
 
        freeTree(root);
-
        return a.exec();
        //return 0;
     }
@@ -81,13 +80,8 @@ int main(int argc, char *argv[]){
 
 
 }
-void free_data(vector<entry*> data){
-    for(int i = 0; i < (int)data.size(); i++){
-        delete data[i];
-    }
-}
 
-void freeTreeHelper(node *&cur){
+/*void freeTreeHelper(node *&cur){
     if (cur != nullptr){
         if (cur->left == nullptr && cur->right == nullptr){
             delete cur;
@@ -98,13 +92,15 @@ void freeTreeHelper(node *&cur){
             freeTreeHelper(cur->left);
         }
     }
-}
+}*/
 
 //free the memory associated with the tree whose root
 //node is represented by the given pointer.
 void freeTree(node* root) {
-    while (root != nullptr){
-        freeTreeHelper(root);
+    if (root != nullptr){
+        freeTree(root->left);
+        freeTree(root->right);
+        delete root;
     }
 }
 
@@ -176,6 +172,8 @@ void buildTree(vector<entry*> &set, node* root){
         buildTree(sub2,right);
     }else{
         root->type=set[0]->type;
+        root->left = nullptr;
+        root->right = nullptr;
     }
 }
 
