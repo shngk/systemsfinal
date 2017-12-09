@@ -28,12 +28,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        #main.cpp \
         DisplayTree.cpp \
-        DecisionTree.cpp
+        DecisionTree.cpp \
+        main.cpp
 
 HEADERS += \
-        DisplayTree.h
+        DisplayTree.h \
+    decisiontree.h
 
 FORMS += \
         DisplayTree.ui
