@@ -1,5 +1,3 @@
-#include <QtOpenGL>
-
 #include <iostream>
 #include <fstream>
 #include <sstream>
