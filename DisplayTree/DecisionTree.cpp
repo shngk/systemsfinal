@@ -51,7 +51,7 @@ bool diff(vector<entry*> &set);
 void buildTree(vector<entry*> &set, node* root);
 vector< vector<entry*> > getSubSet(vector<entry*> &set);
 void printSet(vector<entry *> &set);
-
+void freeTree(node* root);
 
 int main(int argc, char *argv[]){
     ifstream dataset;
@@ -59,23 +59,53 @@ int main(int argc, char *argv[]){
     if (dataset.is_open()) {
        vector<entry*> data;
        read_data(dataset, data);
-       node *root=new node;
+       node* root = new node;
        buildTree(data, root);
        cout<<"DONE"<<endl;
+
+       QApplication a(argc, argv);
+       MainWindow w;
+       w.show();
+
+       freeTree(root);
+
+       return a.exec();
+       //return 0;
     }
     else{
          cout << "fail" << endl;
     }
     dataset.close();
 
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
-
-    return a.exec();
-    //return 0;
 
 
+
+}
+void free_data(vector<entry*> data){
+    for(int i = 0; i < (int)data.size(); i++){
+        delete data[i];
+    }
+}
+
+void freeTreeHelper(node *&cur){
+    if (cur != nullptr){
+        if (cur->left == nullptr && cur->right == nullptr){
+            delete cur;
+            cur = nullptr;
+        }
+        else{
+            freeTreeHelper(cur->right);
+            freeTreeHelper(cur->left);
+        }
+    }
+}
+
+//free the memory associated with the tree whose root
+//node is represented by the given pointer.
+void freeTree(node* root) {
+    while (root != nullptr){
+        freeTreeHelper(root);
+    }
 }
 
 void read_data(ifstream &dataset, vector<entry*> &data){
@@ -86,8 +116,9 @@ void read_data(ifstream &dataset, vector<entry*> &data){
         string delimiter = ",";
         getline(dataset, line);
         size_t pos = 0;
-        entry* new_row = new entry;
+
         if(line[0] != 0){
+            entry* new_row = new entry;
             while((pos = line.find(delimiter)) != string::npos){
               token = line.substr(0,pos);
               double d = stod(token, NULL);
