@@ -56,29 +56,36 @@ int main(){
   centroid *cluster1 = get_random_centroid();
   centroid *cluster2 = get_random_centroid();
   centroid *cluster3 = get_random_centroid();
-  cout << "initialized centroids\n";  //DEBUG
   
   // initialize book-keeping variables
   vector<centroid> oldCentroids;
   int iterations = 0;
 
   // running the algorithm
-  while(iterations < 5) { //need to figure out how to know when we're done
+  while(iterations < 20) { //need to figure out how to know when we're done
     // // save old centroids for convergence test
     oldCentroids.push_back(*cluster1);
     oldCentroids.push_back(*cluster2);
     oldCentroids.push_back(*cluster3);
-    cout << "pushed old centroids\n";  //DEBUG
     
     // // assign labels to each datapoint based on centroids
     assign_pts(list, cluster1, cluster2, cluster3);
 
-    cout << "assigned the points\n"; //DEBUG
+
+    //PRINT CLUSTERS OUT (for visualization)
+    cout << "Cluster 1: \n";
+    print_cluster(cluster1);
+    cout << "Cluster 2: \n";
+    print_cluster(cluster2);
+    cout << "Cluster 3: \n";
+    print_cluster(cluster3);
+
+    
     // // assign centroids based on datapoint labels
     cluster1 = calculate_centroid(cluster1);
     cluster2 = calculate_centroid(cluster2);
     cluster3 = calculate_centroid(cluster3);
-    cout << "set new clusters\n";  //DEBUG
+    
     iterations++;
   }
 }

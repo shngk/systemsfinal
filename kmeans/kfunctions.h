@@ -26,8 +26,12 @@ void assign_pts(vector<vector<string> > data, centroid c1, centroid c2, centroid
 
 centroid * calculate_centroid(centroid *c);
 
+<<<<<<< HEAD
 // function for comparing two centroids
 // returns 0 if true, -1 if false
 int compare_centroids(centroid *c1, centroid *c2);
+=======
+void print_cluster(centroid * c);
+>>>>>>> 9cc4a2daae37c3d9229d2c94fad7dd5f3d72f3b8
 
 #endif
