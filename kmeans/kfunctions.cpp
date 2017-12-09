@@ -4,6 +4,7 @@
 #include <iostream>
 #include "kfunctions.h"
 #include <math.h>
+#include <algorithm> 
 
 using namespace std;
 using std::vector;
@@ -15,12 +16,7 @@ public:
   //  double l;
   //  double w;
   
-  vector<vector<string> > elements;
-
-  //  int compare(centroid c2)
-    // returns 0 (true) if this centroid is the same as c2
-
-    // 
+  vector<vector<string> > elements; 
 };
 
 
@@ -149,4 +145,40 @@ void print_cluster(centroid * c){
     }
     printf("\n");
   }
+}
+
+int compare(centroid *c1, centroid *c2){
+  vector<string> list1;
+  vector<string> list2;
+  
+  // copy id #s from c1->elements into list1
+  for(int i = 0; i < c1->elements.size(); i++){
+    list1.push_back(c1->elements[i][5]);
+  }
+
+  // copy id #s from c1->elements into list2
+  for(int i = 0; i < c2->elements.size(); i++){
+    list2.push_back(c2->elements[i][5]);
+  }
+
+  // sort lists
+  std::sort(list1.begin(), list1.end());
+  std::sort(list2.begin(), list2.end());
+
+  // comment this out when done:
+  // printing the sorted lists to check that this method works correctly:
+  for(int i = 0; i < list1.size(); i++){
+    cout << "list1: \n";
+    cout << list1[i];
+    cout << "\n";
+  }
+  
+  // compare the lists
+  if(list1 == list2){
+    // return 0 if true
+    return 0;
+  }
+
+  // return -1 if false
+  return -1;
 }

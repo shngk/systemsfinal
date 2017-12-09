@@ -11,6 +11,7 @@
 #include "DisplayTree.h"
 #include <QApplication>
 #include <QtOpenGL>
+#include "decisiontree.h"
 
 using namespace std;
 
@@ -57,16 +58,15 @@ int main(int argc, char *argv[]){
     else{
          cout << "fail" << endl;
     }
-    dataset.close();
-
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
-
-    return a.exec();
-    //return 0;
+}
 
 
+void freeTree(node* root) {
+    if (root != nullptr){
+        freeTree(root->left);
+        freeTree(root->right);
+        delete root;
+    }
 }
 
 void read_data(ifstream &dataset, vector<entry*> &data){
@@ -77,8 +77,9 @@ void read_data(ifstream &dataset, vector<entry*> &data){
         string delimiter = ",";
         getline(dataset, line);
         size_t pos = 0;
-        entry* new_row = new entry;
+
         if(line[0] != 0){
+            entry* new_row = new entry;
             while((pos = line.find(delimiter)) != string::npos){
               token = line.substr(0,pos);
               double d = stod(token, NULL);
@@ -136,6 +137,8 @@ void buildTree(vector<entry*> &set, node* root){
         buildTree(sub2,right);
     }else{
         root->type=set[0]->type;
+        root->left = nullptr;
+        root->right = nullptr;
     }
 }
 

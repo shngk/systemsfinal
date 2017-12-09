@@ -3,6 +3,8 @@
 #include <QtOpenGL>
 #include <iostream>
 
+
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -22,4 +24,3 @@ void QWidget::paintEvent(QPaintEvent*){
     p.begin(this);
     p.end();
 }
-

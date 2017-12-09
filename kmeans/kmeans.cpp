@@ -93,13 +93,18 @@ int main(){
     print_cluster(cluster2);
     cout << "Cluster 3: \n";
     print_cluster(cluster3);
-
+    cout << "Number of iterations: ";
+    cout << iterations << "\n";
     
     // // assign centroids based on datapoint labels
     cluster1 = calculate_centroid(cluster1);
     cluster2 = calculate_centroid(cluster2);
     cluster3 = calculate_centroid(cluster3);
-    
+
+    // stop running this loop if the centroids do not continue changing
+    if ((compare(cluster1, &(old_c1.back())) == 0) && (compare(cluster2, &(old_c2.back())) == 0) && (compare(cluster3, &(old_c3.back())))){
+	break;
+    }
     iterations++;
   }
 }
