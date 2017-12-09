@@ -8,9 +8,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
 #include "DisplayTree.h"
 #include <QApplication>
+#include <QtOpenGL>
 
 using namespace std;
 
@@ -21,18 +21,9 @@ public:
     vector<double> attributes;
 };
 
-class node{
-public:
-    int attributeIndex;
-    double median;
-    string type;
-    node* left;
-    node* right;
-};
-
+node root;
 int typeCount;
 int curAttIndex;
-node root;
 
 struct entrycmp{
     bool operator() (const entry *e1, const entry *e2){

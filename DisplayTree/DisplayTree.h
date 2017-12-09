@@ -3,6 +3,21 @@
 
 #include <QMainWindow>
 
+class node{
+public:
+    int attributeIndex;
+    double median;
+    std::string type;
+    node* left;
+    node* right;
+};
+
+node r;
+
+void passRoot(node root){
+    r=root;
+}
+
 namespace Ui {
 class MainWindow;
 }
