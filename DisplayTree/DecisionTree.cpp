@@ -9,6 +9,9 @@
 #include <stdlib.h>
 #include <math.h>
 
+#include "DisplayTree.h"
+#include <QApplication>
+
 using namespace std;
 
 class entry{
@@ -50,7 +53,7 @@ vector< vector<entry*> > getSubSet(vector<entry*> &set);
 void printSet(vector<entry *> &set);
 
 
-int main(){
+int main(int argc, char *argv[]){
     ifstream dataset;
     dataset.open("../DecisionTree/iris.data");
     if (dataset.is_open()) {
@@ -64,7 +67,13 @@ int main(){
          cout << "fail" << endl;
     }
     dataset.close();
-    return 0;
+
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
+
+    return a.exec();
+    //return 0;
 
 
 }
