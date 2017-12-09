@@ -46,10 +46,13 @@ int main(){
     // for adding the species name to vector item
     token = line;
     flower.push_back(token);
-    list.push_back(flower);
 
-    list.push_back(id_num);
+    string id = to_string(id_num);
+    flower.push_back(id);
     id_num++;
+    
+    list.push_back(flower);
+    
   }
 
   data.close(); 
