@@ -168,7 +168,9 @@ int compare(centroid *c1, centroid *c2){
   // comment this out when done:
   // printing the sorted lists to check that this method works correctly:
   for(int i = 0; i < list1.size(); i++){
+    cout << "list1: \n";
     cout << list1[i];
+    cout << "\n";
   }
   
   // compare the lists
