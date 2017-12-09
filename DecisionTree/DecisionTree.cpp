@@ -1,4 +1,4 @@
-//#include <QtOpenGL>
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -34,6 +34,9 @@ node root;
 
 struct entrycmp{
     bool operator() (const entry *e1, const entry *e2){
+        //cout << "compare" << endl;
+        //cout << e1->attributes[curAttIndex] << endl;
+        //cout << e2->attributes[curAttIndex] << endl;
        return (e1->attributes[curAttIndex] < e2->attributes[curAttIndex]);
     }
 };
@@ -56,11 +59,6 @@ int main(){
        read_data(dataset, data);
        node *root=new node;
        buildTree(data, root);
-       //cout << root->median << endl;
-       /*for(int i = 0; i < (int)data.size(); i++){
-           cout << data[i]->attributes[0] << " "<< data[i]->attributes[1] << " " << data[i]->attributes[2] << " " ;
-           cout << data[i]->num_type << " "<< data[i]->type << endl;
-       }*/
        cout<<"DONE"<<endl;
     }
     else{
@@ -144,6 +142,7 @@ void buildTree(vector<entry*> &set, node* root){
 
 bool diff(vector<entry*> &set){
     int type=set[0]->num_type;
+
     for(int i=0;i< (int) set.size();i++){
         if(set[i]->num_type!=type){
             return true;
