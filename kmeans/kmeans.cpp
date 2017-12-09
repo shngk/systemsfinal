@@ -4,6 +4,7 @@
 #include <iostream>
 #include "kfunctions.h"
 #include "kfunctions.cpp"
+#include <string>
 
 using namespace std;
 using std::vector;
@@ -22,6 +23,10 @@ int main(){
 
   //arraylist of flowers goes here
   vector<vector<string> > list;  
+
+  int id_num = 1;
+
+  
   
   for ( string line; getline(data, line);){
     vector<string> flower;      
@@ -42,10 +47,13 @@ int main(){
     token = line;
     flower.push_back(token);
     list.push_back(flower);
+
+    list.push_back(id_num);
+    id_num++;
   }
 
   data.close(); 
-  //DEBUGGED UP TO HERE
+
   
   /* KMEANS ALGORITHM */
   // inspired by pseudocode from:
@@ -58,15 +66,18 @@ int main(){
   centroid *cluster3 = get_random_centroid();
   
   // initialize book-keeping variables
-  vector<centroid> oldCentroids;
+  vector<centroid> old_c1;
+  vector<centroid> old_c2;
+  vector<centroid> old_c3;
+  
   int iterations = 0;
 
   // running the algorithm
   while(iterations < 20) { //need to figure out how to know when we're done
     // // save old centroids for convergence test
-    oldCentroids.push_back(*cluster1);
-    oldCentroids.push_back(*cluster2);
-    oldCentroids.push_back(*cluster3);
+    old_c1.push_back(*cluster1);
+    old_c2.push_back(*cluster2);
+    old_c3.push_back(*cluster3);
     
     // // assign labels to each datapoint based on centroids
     assign_pts(list, cluster1, cluster2, cluster3);

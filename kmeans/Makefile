@@ -1,4 +1,4 @@
-CFLAGS = -Wall -Wextra -pedantic -g
+CFLAGS = -std=c++11 -Wall -Wextra -pedantic -g
 
 TARGETS = kmeans
 
