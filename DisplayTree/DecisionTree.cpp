@@ -60,22 +60,22 @@ void read_data(ifstream &dataset, vector<entry*> &data, int &typeCount){
 
 void buildTree(vector<entry*> &set, node* root,  int &typeCount){
     if(diff(set)){
-        cout<<"set is difference"<<endl;
-        printSet(set);
+        //cout<<"set is difference"<<endl;
+        //printSet(set);
         int attIndex=0;
         double gainMax=0;
         for(int i=0;i<(int) set[0]->attributes.size();i++){
             curAttIndex=i;
-            cout << "curAttIndex" <<": "<<curAttIndex<< endl;
+            //cout << "curAttIndex" <<": "<<curAttIndex<< endl;
             double gain=getGain(set, typeCount);
-            cout << "gain: "<<gain<<endl;
+            //cout << "gain: "<<gain<<endl;
             if(gain>gainMax){
                 gainMax=gain;
                 attIndex=i;
             }
         }
         curAttIndex=attIndex;
-        cout<<"classifying according to: "<<curAttIndex<<endl;
+        //cout<<"classifying according to: "<<curAttIndex<<endl;
         stable_sort(set.begin(), set.end(), entrycmp());
         vector< vector<entry*> > temp=getSubSet(set);
         vector<entry*> sub1=temp[0];
@@ -89,10 +89,10 @@ void buildTree(vector<entry*> &set, node* root,  int &typeCount){
         root->median=sub2[0]->attributes[curAttIndex];
         root->attributeIndex=curAttIndex;
         cout<<"median: "<<root->median<<endl;
-        cout<<"sub1: "<<sub1.size()<<endl;
-        printSet(sub1);
-        cout<<"sub2: "<<sub2.size()<<endl;
-        printSet(sub2);
+        //cout<<"sub1: "<<sub1.size()<<endl;
+        //printSet(sub1);
+        //cout<<"sub2: "<<sub2.size()<<endl;
+        //printSet(sub2);
         buildTree(sub1,left, typeCount);
         buildTree(sub2,right, typeCount);
     }else{
@@ -153,6 +153,18 @@ vector< vector<entry*> > getSubSet(vector<entry*> &set){
     ret.push_back(sub1);
     ret.push_back(sub2);
     return ret;
+}
+
+void nodeList(node* cur,vector<node*> &tree){
+    if(cur->left==nullptr || cur->right==nullptr){
+        //cout<<cur->attributeIndex<<" "<<cur->median<<endl;
+        tree.push_back(cur);
+    }else{
+        tree.push_back(cur);
+        //cout<<cur->attributeIndex<<" "<<cur->median<<endl;
+        nodeList(cur->left,tree);
+        nodeList(cur->right,tree);
+    }
 }
 
 void printSet(vector<entry*> &set){
