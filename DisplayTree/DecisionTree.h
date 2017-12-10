@@ -41,7 +41,7 @@ void buildTree(vector<entry*> &set, node* root, int &typeCount);
 vector< vector<entry*> > getSubSet(vector<entry*> &set);
 void printSet(vector<entry *> &set);
 void freeTree(node* root);
-void nodeList(node* cur,vector<node*> &tree);
+int nodeList(node* cur,vector<node*> &tree);
 
 
 

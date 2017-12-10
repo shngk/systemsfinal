@@ -88,7 +88,7 @@ void buildTree(vector<entry*> &set, node* root,  int &typeCount){
         root->right=right;
         root->median=sub2[0]->attributes[curAttIndex];
         root->attributeIndex=curAttIndex;
-        cout<<"median: "<<root->median<<endl;
+        //cout<<"median: "<<root->median<<endl;
         //cout<<"sub1: "<<sub1.size()<<endl;
         //printSet(sub1);
         //cout<<"sub2: "<<sub2.size()<<endl;
@@ -99,6 +99,7 @@ void buildTree(vector<entry*> &set, node* root,  int &typeCount){
         root->type=set[0]->type;
         root->left = nullptr;
         root->right = nullptr;
+        root->median=-1;
     }
 }
 
@@ -155,15 +156,21 @@ vector< vector<entry*> > getSubSet(vector<entry*> &set){
     return ret;
 }
 
-void nodeList(node* cur,vector<node*> &tree){
+int nodeList(node* cur,vector<node*> &tree){
     if(cur->left==nullptr || cur->right==nullptr){
         //cout<<cur->attributeIndex<<" "<<cur->median<<endl;
         tree.push_back(cur);
+        return 1;
     }else{
         tree.push_back(cur);
         //cout<<cur->attributeIndex<<" "<<cur->median<<endl;
-        nodeList(cur->left,tree);
-        nodeList(cur->right,tree);
+        int d1=nodeList(cur->left,tree);
+        int d2=nodeList(cur->right,tree);
+        if(d1>d2){
+            return d1+1;
+        }else{
+            return d2+1;
+        }
     }
 }
 
