@@ -65,12 +65,11 @@ void QWidget::paintEvent(QPaintEvent*){
     QPainter p;
     p.begin(this);
     paintTree(p,w/2,10,root);
-    //printTree(root);
+    printTree(root);
     p.end();
 }
 
 void paintTree(QPainter &p,int x, int y,node* cur){
-
     if(cur->left==nullptr && cur->left==nullptr){
         paintNode(p,x-45,y,true);
     }else{
@@ -83,7 +82,7 @@ void paintTree(QPainter &p,int x, int y,node* cur){
 void paintNode(QPainter &p, int x, int y,bool isLeaf){
     p.drawEllipse(x+15,y+10,60,60);
     p.drawLine(x+45,y,x+45,y+10);
-    QRectF rectangle(0,y+20,90,40);
+    QRectF rectangle(x,y+20,90,40);
     p.fillRect(rectangle,Qt::white);
     if(!isLeaf){
         p.drawLine(x+45,y+70,x+45,y+90);
