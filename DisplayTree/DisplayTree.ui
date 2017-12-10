@@ -19,17 +19,11 @@
     <rect>
      <x>0</x>
      <y>0</y>
-<<<<<<< HEAD
-     <width>400</width>
-=======
      <width>580</width>
->>>>>>> fc718cadbee32e8758e5191503ba65c5c508954a
      <height>22</height>
     </rect>
    </property>
   </widget>
-<<<<<<< HEAD
-=======
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
@@ -38,7 +32,6 @@
     <bool>false</bool>
    </attribute>
   </widget>
->>>>>>> fc718cadbee32e8758e5191503ba65c5c508954a
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
