@@ -41,7 +41,6 @@ MainWindow::~MainWindow()
 
 void QWidget::paintEvent(QPaintEvent*){
     QPainter p;
-    node*cur=tree[0];
     p.begin(this);
     paintTree(p,w/2,10,0);
     p.end();
@@ -53,7 +52,8 @@ int paintTree(QPainter &p,int x, int y,int index){
     if(isLeaf){
         return index;
     }else{
-        return paintTree(p,);
+        int left=paintTree(p,x-45,y+90,index+1);
+        return paintTree(p,x+45,y+90,left+1);
     }
 }
 

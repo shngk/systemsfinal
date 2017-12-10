@@ -3,7 +3,7 @@
 
 int main(int argc, char *argv[]){
     ifstream dataset;
-    dataset.open("../DecisionTree/iris.data");
+    dataset.open("../DecisionTree/test.data");
     if (dataset.is_open()) {
        vector<string> names = {"Sepal Length", "Sepal Width", "Petal Length", "Petal Width"};
        vector<entry*> data;
