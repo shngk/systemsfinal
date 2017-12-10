@@ -11,7 +11,7 @@ int h=600;
 std::vector<std::string> attributes;
 
 void paintNode(QPainter &p, int x, int y,bool isLeaf);
-//int paintTree(QPainter &p,int x, int y,int index);
+void paintTree(QPainter &p,int x, int y,node* cur);
 
 void printTree(node *r){
     if(r->left == nullptr && r->right == nullptr){
@@ -26,7 +26,7 @@ void printTree(node *r){
 
 void MainWindow::getRoot(node* r){
     root = r;
-    printTree(r);
+    //printTree(r);
 }
 
 
@@ -42,7 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::getTree(vector<node*> &t,int d){
     tree = t;
     dep=d;
-    cout<<dep<<endl;
+    //cout<<dep<<endl;
     /*for(int i=0;i<(int)tree.size();i++){
         cout<<tree[i]->median<<endl;
     }*/
@@ -59,22 +59,21 @@ MainWindow::~MainWindow()
 
 void QWidget::paintEvent(QPaintEvent*){
     QPainter p;
-    //node*cur=tree[0];
     p.begin(this);
-    //paintTree(p,w/2,10,0);
+    printTree(root);
+    paintTree(p,w/2,10,root);
     p.end();
 }
 
-/*int paintTree(QPainter &p,int x, int y,int index){
-    bool isLeaf=tree[index]->median==-1;
-    paintNode(p,x-45,y,isLeaf);
-    if(isLeaf){
-        return index;
+void paintTree(QPainter &p,int x, int y,node* cur){
+    if(cur->left==nullptr && cur->left==nullptr){
+        paintNode(p,x-45,y,true);
     }else{
-        int left=paintTree(p,x-45,y+90,index+1);
-        return paintTree(p,x+45,y+90,left+1);
+        paintNode(p,x-45,y,false);
+        paintTree(p,x-45,y+90,cur->left);
+        paintTree(p,x+45,y+90,cur->right);
     }
-}*/
+}
 
 void paintNode(QPainter &p, int x, int y,bool isLeaf){
     p.drawEllipse(x+15,y+10,60,60);
