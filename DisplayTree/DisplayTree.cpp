@@ -7,7 +7,7 @@ vector<node*> tree;
 node* root;
 int dep;
 int w=800;
-int h=600;
+int h=1000;
 std::vector<std::string> attributes;
 
 void paintNode(QPainter &p, int x, int y,bool isLeaf);
@@ -25,7 +25,8 @@ void printTree(node *r){
 void MainWindow::getRoot(node* r){
     //cout<<"calling getRoot"<<endl;
     root = r;
-    cout<<root->right->median<<endl;
+    //cout << "getroot" << endl;
+    //printTree(r);
     //printTree(r);
 }
 
@@ -36,6 +37,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setFixedSize(w,h);
+
 }
 
 
@@ -58,11 +60,11 @@ MainWindow::~MainWindow()
 }
 
 void QWidget::paintEvent(QPaintEvent*){
-    cout<<"running"<<endl;
-    printTree(root);
+    cout << "paint" << endl;
     QPainter p;
     p.begin(this);
-    //paintTree(p,w/2,10,root);paintNode(p,w/2,10,true);
+    paintTree(p,w/2,10,root);
+    printTree(root);
     p.end();
 }
 
@@ -80,7 +82,7 @@ void paintNode(QPainter &p, int x, int y,bool isLeaf){
     //printTree(root);
     p.drawEllipse(x+15,y+10,60,60);
     p.drawLine(x+45,y,x+45,y+10);
-    QRectF rectangle(0,y+20,90,40);
+    QRectF rectangle(x,y+20,90,40);
     p.fillRect(rectangle,Qt::white);
     if(!isLeaf){
         p.drawLine(x+45,y+70,x+45,y+90);

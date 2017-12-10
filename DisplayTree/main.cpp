@@ -18,13 +18,17 @@ int main(int argc, char *argv[]){
 
        QApplication a(argc, argv);
        MainWindow w;
-       w.getTree(tree,depth);
        w.getRoot(root);
+
+       w.getTree(tree,depth);
        w.getAttributes(names);
        w.show();
 
+
+
+       int status = a.exec();
        freeTree(root);
-       return a.exec();
+       return status;
     }
     else{
          cout << "fail" << endl;
