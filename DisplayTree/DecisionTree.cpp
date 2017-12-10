@@ -8,6 +8,7 @@ struct entrycmp{
     }
 };
 
+
 void freeTree(node* root) {
     if (root != nullptr){
         freeTree(root->left);
