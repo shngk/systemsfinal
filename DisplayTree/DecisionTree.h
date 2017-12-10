@@ -32,21 +32,12 @@ public:
     node* right;
 };
 
-extern node* root;
-extern int typeCount;
-extern int curAttIndex;
 
-struct entrycmp{
-    bool operator() (const entry *e1, const entry *e2){
-       return (e1->attributes[curAttIndex] < e2->attributes[curAttIndex]);
-    }
-};
-
-void read_data(ifstream &dataset, vector<entry*> &data);
-double getGain(vector<entry*> &set);
-double getEntropy(vector<entry*> &set);
+void read_data(ifstream &dataset, vector<entry*> &data, int &typeCount);
+double getGain(vector<entry*> &set,  int &typeCount);
+double getEntropy(vector<entry*> &set, int &typeCount);
 bool diff(vector<entry*> &set);
-void buildTree(vector<entry*> &set, node* root);
+void buildTree(vector<entry*> &set, node* root, int &typeCount);
 vector< vector<entry*> > getSubSet(vector<entry*> &set);
 void printSet(vector<entry *> &set);
 void freeTree(node* root);

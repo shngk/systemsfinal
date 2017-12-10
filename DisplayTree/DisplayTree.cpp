@@ -3,7 +3,7 @@
 #include <QtOpenGL>
 #include <iostream>
 
-
+node* root;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -22,4 +22,8 @@ void QWidget::paintEvent(QPaintEvent*){
     QPainter p;
     p.begin(this);
     p.end();
+}
+void MainWindow::getRoot(node* r){
+    root = r;
+    cout << "hahaha I'm root."<< r->median << endl;
 }

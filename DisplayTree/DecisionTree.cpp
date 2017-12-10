@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -11,33 +12,17 @@
 #include <QApplication>
 #include <QtOpenGL>
 #include "temp.h"
+=======
+#include "DecisionTree.h"
+>>>>>>> 7962c4ce5dae8557862897765da89eb23871b89f
 
-using namespace std;
+int curAttIndex;
 
-void read_data(ifstream &dataset, vector<entry*> &data);
-double getGain(vector<entry*> &set);
-//bool entryCmp(entry* e1,entry* e2);
-double getEntropy(vector<entry*> &set);
-bool diff(vector<entry*> &set);
-void buildTree(vector<entry*> &set, node* root);
-vector< vector<entry*> > getSubSet(vector<entry*> &set);
-void printSet(vector<entry *> &set);
-
-
-int main(){
-    ifstream dataset;
-    dataset.open("../DecisionTree/iris.data");
-    if (dataset.is_open()) {
-       vector<entry*> data;
-       read_data(dataset, data);
-       node *root=new node;
-       buildTree(data, root);
-       cout<<"DONE"<<endl;
+struct entrycmp{
+    bool operator() (const entry *e1, const entry *e2){
+       return (e1->attributes[curAttIndex] < e2->attributes[curAttIndex]);
     }
-    else{
-         cout << "fail" << endl;
-    }
-}
+};
 
 
 void freeTree(node* root) {
@@ -48,7 +33,7 @@ void freeTree(node* root) {
     }
 }
 
-void read_data(ifstream &dataset, vector<entry*> &data){
+void read_data(ifstream &dataset, vector<entry*> &data, int &typeCount){
     int num = 0;
     while (!dataset.eof()) {
         string line;
@@ -77,7 +62,7 @@ void read_data(ifstream &dataset, vector<entry*> &data){
 }
 
 
-void buildTree(vector<entry*> &set, node* root){
+void buildTree(vector<entry*> &set, node* root,  int &typeCount){
     if(diff(set)){
         cout<<"set is difference"<<endl;
         printSet(set);
@@ -86,7 +71,7 @@ void buildTree(vector<entry*> &set, node* root){
         for(int i=0;i<(int) set[0]->attributes.size();i++){
             curAttIndex=i;
             cout << "curAttIndex" <<": "<<curAttIndex<< endl;
-            double gain=getGain(set);
+            double gain=getGain(set, typeCount);
             cout << "gain: "<<gain<<endl;
             if(gain>gainMax){
                 gainMax=gain;
@@ -112,8 +97,8 @@ void buildTree(vector<entry*> &set, node* root){
         printSet(sub1);
         cout<<"sub2: "<<sub2.size()<<endl;
         printSet(sub2);
-        buildTree(sub1,left);
-        buildTree(sub2,right);
+        buildTree(sub1,left, typeCount);
+        buildTree(sub2,right, typeCount);
     }else{
         root->type=set[0]->type;
         root->left = nullptr;
@@ -132,17 +117,17 @@ bool diff(vector<entry*> &set){
     return false;
 }
 
-double getGain(vector<entry*> &set){
-    double infoGain=getEntropy(set);
+double getGain(vector<entry*> &set, int &typeCount){
+    double infoGain=getEntropy(set,  typeCount);
     stable_sort(set.begin(), set.end(), entrycmp());
     vector< vector<entry*> > temp=getSubSet(set);
     vector<entry*> sub1=temp[0];
     vector<entry*> sub2=temp[1];
-    infoGain=infoGain-((double)sub1.size()/set.size())*getEntropy(sub1)-((double)sub2.size()/set.size())*getEntropy(sub2);
+    infoGain=infoGain-((double)sub1.size()/set.size())*getEntropy(sub1,  typeCount)-((double)sub2.size()/set.size())*getEntropy(sub2, typeCount);
     return infoGain;
 }
 
-double getEntropy(vector<entry*> &set){
+double getEntropy(vector<entry*> &set, int &typeCount){
     double entropy=0;
     vector<int> count (typeCount);
     for(int i=0;i< (int) set.size();i++){
