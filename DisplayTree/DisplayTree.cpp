@@ -7,7 +7,7 @@ vector<node*> tree;
 node* root;
 int dep;
 int w=800;
-int h=600;
+int h=1000;
 std::vector<std::string> attributes;
 
 void paintNode(QPainter &p, int x, int y,bool isLeaf);
@@ -26,6 +26,8 @@ void printTree(node *r){
 
 void MainWindow::getRoot(node* r){
     root = r;
+    cout << "getroot" << endl;
+    //printTree(r);
     //printTree(r);
 }
 
@@ -36,6 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setFixedSize(w,h);
+
 }
 
 
@@ -58,14 +61,16 @@ MainWindow::~MainWindow()
 }
 
 void QWidget::paintEvent(QPaintEvent*){
+    cout << "paint" << endl;
     QPainter p;
     p.begin(this);
-    printTree(root);
     paintTree(p,w/2,10,root);
+    //printTree(root);
     p.end();
 }
 
 void paintTree(QPainter &p,int x, int y,node* cur){
+
     if(cur->left==nullptr && cur->left==nullptr){
         paintNode(p,x-45,y,true);
     }else{
