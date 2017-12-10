@@ -11,11 +11,15 @@ int main(int argc, char *argv[]){
        read_data(dataset, data, typeCount);
        node *root = new node;
        buildTree(data, root, typeCount);
+       vector<node*> tree;
+       //nodeList(root,tree);
+       //cout<<tree.size()<<endl;
        cout<<"DONE"<<endl;
 
        QApplication a(argc, argv);
        MainWindow w;
-       w.getRoot(root);
+       w.getTree(tree);
+       w.getAttributes(names);
        w.show();
 
        freeTree(root);

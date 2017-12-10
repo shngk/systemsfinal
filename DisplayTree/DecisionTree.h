@@ -1,8 +1,6 @@
 #ifndef DECISIONTREE_H
 #define DECISIONTREE_H
 
-#endif // DECISIONTREE_H
-
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -43,3 +41,8 @@ void buildTree(vector<entry*> &set, node* root, int &typeCount);
 vector< vector<entry*> > getSubSet(vector<entry*> &set);
 void printSet(vector<entry *> &set);
 void freeTree(node* root);
+void nodeList(node* cur,vector<node*> &tree);
+
+
+
+#endif // DECISIONTREE_H

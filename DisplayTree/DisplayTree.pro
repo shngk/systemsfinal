@@ -34,7 +34,7 @@ SOURCES += \
 
 HEADERS += \
         DisplayTree.h \
-    DecisionTree.h
+        DecisionTree.h
 
 FORMS += \
         DisplayTree.ui

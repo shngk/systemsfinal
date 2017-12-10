@@ -1,3 +1,15 @@
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <string>
+#include <map>
+#include <array>
+#include <vector>
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <QApplication>
+#include <QtOpenGL>
 #include "DecisionTree.h"
 
 int curAttIndex;
@@ -141,6 +153,18 @@ vector< vector<entry*> > getSubSet(vector<entry*> &set){
     ret.push_back(sub1);
     ret.push_back(sub2);
     return ret;
+}
+
+void nodeList(node* cur,vector<node*> &tree){
+    if(cur->left==nullptr || cur->right==nullptr){
+        //cout<<cur->attributeIndex<<" "<<cur->median<<endl;
+        tree.push_back(cur);
+    }else{
+        tree.push_back(cur);
+        //cout<<cur->attributeIndex<<" "<<cur->median<<endl;
+        nodeList(cur->left,tree);
+        nodeList(cur->right,tree);
+    }
 }
 
 void printSet(vector<entry*> &set){

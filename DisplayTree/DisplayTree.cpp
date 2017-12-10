@@ -1,9 +1,10 @@
-#include "DisplayTree.h"
+#include <DisplayTree.h>
 #include "ui_DisplayTree.h"
 #include <QtOpenGL>
 #include <iostream>
 
-node* root;
+vector<node*> tree;
+std::vector<std::string> attributes;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -11,6 +12,19 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
     this->setFixedSize(800,600);
+}
+
+
+void MainWindow::getTree(vector<node*> &t){
+    tree = t;
+    //cout<<t.size()<<endl;
+    /*for(int i=0;i<(int)tree.size();i++){
+        cout<<tree[i]->median<<endl;
+    }*/
+}
+
+void MainWindow::getAttributes(std::vector<std::string> att){
+    attributes=att;
 }
 
 MainWindow::~MainWindow()
@@ -23,7 +37,4 @@ void QWidget::paintEvent(QPaintEvent*){
     p.begin(this);
     p.end();
 }
-void MainWindow::getRoot(node* r){
-    root = r;
-    cout << "hahaha I'm root."<< r->median << endl;
-}
+
