@@ -33,14 +33,8 @@ SOURCES += \
         main.cpp
 
 HEADERS += \
-<<<<<<< HEAD
-        #DisplayTree.h \
-        #decisiontree.h \
-        temp.h
-=======
         DisplayTree.h \
-    DecisionTree.h
->>>>>>> 7962c4ce5dae8557862897765da89eb23871b89f
+        DecisionTree.h
 
 FORMS += \
         DisplayTree.ui

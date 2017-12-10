@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -11,10 +10,7 @@
 #include <math.h>
 #include <QApplication>
 #include <QtOpenGL>
-#include "temp.h"
-=======
 #include "DecisionTree.h"
->>>>>>> 7962c4ce5dae8557862897765da89eb23871b89f
 
 int curAttIndex;
 

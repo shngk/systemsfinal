@@ -1,4 +1,4 @@
-#include "temp.h"
+#include <DisplayTree.h>
 #include "ui_DisplayTree.h"
 #include <QtOpenGL>
 #include <iostream>
@@ -23,6 +23,7 @@ void QWidget::paintEvent(QPaintEvent*){
     p.begin(this);
     p.end();
 }
+
 void MainWindow::getRoot(node* r){
     root = r;
     cout << "hahaha I'm root."<< r->median << endl;
