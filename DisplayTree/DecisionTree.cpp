@@ -8,10 +8,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "DisplayTree.h"
 #include <QApplication>
 #include <QtOpenGL>
-#include "decisiontree.h"
+#include "temp.h"
 
 using namespace std;
 

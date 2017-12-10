@@ -1,5 +1,5 @@
-#ifndef DECISIONTREE_H
-#define DECISIONTREE_H
+#ifndef TEMP_H
+#define TEMP_H
 
 #include <iostream>
 #include <fstream>
@@ -11,8 +11,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-
+#include <QMainWindow>
 #include <QApplication>
+
+namespace Ui {
+class MainWindow;
+}
+
+class MainWindow : public QMainWindow
+{
+    Q_OBJECT
+
+public:
+    explicit MainWindow(QWidget *parent = 0);
+    ~MainWindow();
+
+private:
+    Ui::MainWindow *ui;
+};
 
 using namespace std;
 
@@ -51,6 +67,4 @@ vector< vector<entry*> > getSubSet(vector<entry*> &set);
 void printSet(vector<entry *> &set);
 void freeTree(node* root);
 
-
-
-#endif // DECISIONTREE_H
+#endif // TEMP_H
