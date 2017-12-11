@@ -15,11 +15,13 @@ void paintNode(QPainter &p, int x, int y,bool isLeaf);
 void paintTree(QPainter &p,int x, int y,node* cur);
 
 void printTree(node *r){
+
     if(r->left == nullptr && r->right == nullptr){
         cout << r->median << endl;
         c++;
     }
     else{
+
         cout << r->median << endl;
         c++;
         printTree(r->left);
@@ -28,8 +30,9 @@ void printTree(node *r){
 }
 
 void MainWindow::getRoot(node* r){
+    //cout<<"calling getRoot"<<endl;
     root = r;
-    cout << "getroot" << endl;
+    //cout << "getroot" << endl;
     //printTree(r);
     //printTree(r);
 }
@@ -83,6 +86,7 @@ void paintTree(QPainter &p,int x, int y,node* cur){
 }
 
 void paintNode(QPainter &p, int x, int y,bool isLeaf){
+    //printTree(root);
     p.drawEllipse(x+15,y+10,60,60);
     p.drawLine(x+45,y,x+45,y+10);
     QRectF rectangle(x,y+20,90,40);
