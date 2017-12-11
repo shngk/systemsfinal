@@ -24,8 +24,6 @@ int main(int argc, char *argv[]){
        w.getAttributes(names);
        w.show();
 
-
-
        int status = a.exec();
        freeTree(root);
        return status;

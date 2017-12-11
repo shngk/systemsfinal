@@ -9,16 +9,19 @@ int dep;
 int w=800;
 int h=1000;
 std::vector<std::string> attributes;
+int c=0;
 
 void paintNode(QPainter &p, int x, int y,bool isLeaf);
 void paintTree(QPainter &p,int x, int y,node* cur);
 
 void printTree(node *r){
     if(r->left == nullptr && r->right == nullptr){
-
+        cout << r->median << endl;
+        c++;
     }
     else{
         cout << r->median << endl;
+        c++;
         printTree(r->left);
         printTree(r->right);
     }
@@ -61,7 +64,7 @@ MainWindow::~MainWindow()
 }
 
 void QWidget::paintEvent(QPaintEvent*){
-    cout << "paint" << endl;
+    cout << "paint" << " " << c << endl;
     QPainter p;
     p.begin(this);
     paintTree(p,w/2,10,root);
@@ -73,9 +76,9 @@ void paintTree(QPainter &p,int x, int y,node* cur){
     if(cur->left==nullptr && cur->left==nullptr){
         paintNode(p,x-45,y,true);
     }else{
-        paintNode(p,x-45,y,false);
-        paintTree(p,x-45,y+90,cur->left);
-        paintTree(p,x+45,y+90,cur->right);
+        paintNode(p,x+45,y,false);
+        paintTree(p,x-90,y+90,cur->left);
+        paintTree(p,x+90,y+90,cur->right);
     }
 }
 
