@@ -1,3 +1,11 @@
+/* CSCI 241: Final Project
+ * Synthia Wang, Han Shao, Sheng Kao, Rebecca Lawrence
+ * DecisionTree.cpp contains the functions to read data from dataset and build the decision tree.
+ *
+ * Note: DecisionTree.cpp can be compiled through Terminal.
+ *
+ * @author Synthia Wang, Han Shao
+ */
 
 #include <iostream>
 #include <fstream>
@@ -32,11 +40,10 @@ int typeCount;
 int curAttIndex;
 node root;
 
+/* compare operator for stable_sort
+ */
 struct entrycmp{
     bool operator() (const entry *e1, const entry *e2){
-        //cout << "compare" << endl;
-        //cout << e1->attributes[curAttIndex] << endl;
-        //cout << e2->attributes[curAttIndex] << endl;
        return (e1->attributes[curAttIndex] < e2->attributes[curAttIndex]);
     }
 };
@@ -49,27 +56,46 @@ bool diff(vector<entry*> &set);
 void buildTree(vector<entry*> &set, node* root);
 vector< vector<entry*> > getSubSet(vector<entry*> &set);
 void printSet(vector<entry *> &set);
-
+void freeTree(node *root);
 
 int main(){
     ifstream dataset;
+    //open dataset
     dataset.open("../DecisionTree/iris.data");
+    //open dataset successfully
     if (dataset.is_open()) {
+        //initializes dataset
        vector<entry*> data;
+       //reads data from dataset
        read_data(dataset, data);
+       //inirializes the root node
        node *root=new node;
+       //builds tree based on dataset
        buildTree(data, root);
        cout<<"DONE"<<endl;
+       dataset.close();
+       freeTree(root);
     }
     else{
          cout << "fail" << endl;
-    }
-    dataset.close();
+    }   
     return 0;
 
 
 }
+/* frees tree
+ */
+void freeTree(node* root) {
+    if (root != nullptr){
+        freeTree(root->left);
+        freeTree(root->right);
+        delete root;
+    }
+}
 
+/* takes dataset file, empty vector of data, and 0 of type,
+ * to add each row to data, and count the number of types
+ */
 void read_data(ifstream &dataset, vector<entry*> &data){
     int num = 0;
     while (!dataset.eof()) {
@@ -97,7 +123,9 @@ void read_data(ifstream &dataset, vector<entry*> &data){
     typeCount=num;
 }
 
-
+/* takes vector set, root node, and number of types,
+ * to build the tree
+ */
 void buildTree(vector<entry*> &set, node* root){
     if(diff(set)){
         cout<<"set is difference"<<endl;
@@ -121,9 +149,7 @@ void buildTree(vector<entry*> &set, node* root){
         vector<entry*> sub1=temp[0];
         vector<entry*> sub2=temp[1];
         node* left=new node;
-        node* right=new node;
-        //left->attributeIndex=curAttIndex;
-        //right->attributeIndex=curAttIndex;
+        node* right=new node;      
         root->left=left;
         root->right=right;
         root->median=sub2[0]->attributes[curAttIndex];
@@ -140,6 +166,8 @@ void buildTree(vector<entry*> &set, node* root){
     }
 }
 
+/*takes one set to check whether each element's type if same or not
+ */
 bool diff(vector<entry*> &set){
     int type=set[0]->num_type;
 
@@ -151,6 +179,9 @@ bool diff(vector<entry*> &set){
     return false;
 }
 
+
+/*takes one set and number of types to calculate information gain
+ */
 double getGain(vector<entry*> &set){
     double infoGain=getEntropy(set);
     stable_sort(set.begin(), set.end(), entrycmp());
@@ -161,6 +192,8 @@ double getGain(vector<entry*> &set){
     return infoGain;
 }
 
+/*takes one set and number of types to calculate entropy
+ */
 double getEntropy(vector<entry*> &set){
     double entropy=0;
     vector<int> count (typeCount);
@@ -176,6 +209,8 @@ double getEntropy(vector<entry*> &set){
     return entropy;
 }
 
+/*takes one set and returns vector of subsets based on median
+ */
 vector< vector<entry*> > getSubSet(vector<entry*> &set){
     //cout << "getting subSet" << endl;
     vector<entry*> sub1;
@@ -193,6 +228,8 @@ vector< vector<entry*> > getSubSet(vector<entry*> &set){
     return ret;
 }
 
+/*Test Function: takes a vector and prints it
+ */
 void printSet(vector<entry*> &set){
     for(int i=0;i<(int)set.size();i++){
         vector<double> cur=set[i]->attributes;

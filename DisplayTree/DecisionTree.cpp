@@ -2,7 +2,8 @@
  * Synthia Wang, Han Shao, Sheng Kao, Rebecca Lawrence
  * DecisionTree.cpp contains the functions to read data from dataset and build the decision tree.
  *
- * Note: DecisionTree.cpp can be compiled through Terminal if we copy the main function from main.cpp and remove the displaying tree part.
+ * Note: DecisionTree.cpp can be compiled through Terminal.
+ * (This version does not contain main function, DecisionTree.cpp in DecisionTree folder works)
  *
  * @author Synthia Wang, Han Shao
  */
