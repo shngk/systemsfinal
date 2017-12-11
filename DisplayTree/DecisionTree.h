@@ -12,8 +12,6 @@
 #include <stdlib.h>
 #include <math.h>
 
-#include <QApplication>
-
 using namespace std;
 
 class entry{
@@ -42,7 +40,6 @@ vector< vector<entry*> > getSubSet(vector<entry*> &set);
 void printSet(vector<entry *> &set);
 void freeTree(node* root);
 int getDepth(node* cur);
-
 
 
 #endif // DECISIONTREE_H
