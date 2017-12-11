@@ -15,8 +15,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    void getTree(vector<node*> &t,int d);
-    void getRoot(node* r);
+    void getRoot(node* r,int d);
     void getAttributes(std::vector<std::string>);
 
 private:

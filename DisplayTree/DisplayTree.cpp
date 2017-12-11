@@ -2,17 +2,20 @@
 #include "ui_DisplayTree.h"
 #include <QtOpenGL>
 #include <iostream>
+#include <QScrollArea>
 
 vector<node*> tree;
 node* root;
 int dep;
-int w=800;
-int h=1000;
+int w=1280;
+int h=800;
+int size=90;
 std::vector<std::string> attributes;
 int c=0;
+QPainter p;
 
-void paintNode(QPainter &p, int x, int y,bool isLeaf);
-void paintTree(QPainter &p,int x, int y,node* cur);
+void paintNode(QPainter &p, int x, int y,node* cur);
+void paintTree(QPainter &p,int x, int y,int d,node* cur);
 
 void printTree(node *r){
 
@@ -29,14 +32,11 @@ void printTree(node *r){
     }
 }
 
-void MainWindow::getRoot(node* r){
+void MainWindow::getRoot(node* r,int d){
     //cout<<"calling getRoot"<<endl;
     root = r;
-    //cout << "getroot" << endl;
-    //printTree(r);
-    //printTree(r);
+    dep=d;
 }
-
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -45,17 +45,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     this->setFixedSize(w,h);
 
+    paintEvent paint = new paintEvent;
+
 }
 
-
-void MainWindow::getTree(vector<node*> &t,int d){
-    tree = t;
-    dep=d;
-    //cout<<dep<<endl;
-    /*for(int i=0;i<(int)tree.size();i++){
-        cout<<tree[i]->median<<endl;
-    }*/
-}
 
 void MainWindow::getAttributes(std::vector<std::string> att){
     attributes=att;
@@ -67,33 +60,39 @@ MainWindow::~MainWindow()
 }
 
 void QWidget::paintEvent(QPaintEvent*){
-    cout << "paint" << " " << c << endl;
-    QPainter p;
+
     p.begin(this);
-    paintTree(p,w/2,10,root);
-    printTree(root);
+    QRectF bg(0,0,w,h);
+    p.fillRect(bg,Qt::white);
+    paintTree(p,w/2,0,dep-1,root);
     p.end();
+
 }
 
-void paintTree(QPainter &p,int x, int y,node* cur){
+
+void paintTree(QPainter &p,int x, int y,int d, node* cur){
     if(cur->left==nullptr && cur->left==nullptr){
-        paintNode(p,x-45,y,true);
+        paintNode(p,x-size,y,cur);
     }else{
-        paintNode(p,x+45,y,false);
-        paintTree(p,x-90,y+90,cur->left);
-        paintTree(p,x+90,y+90,cur->right);
+        paintNode(p,x-(size/2),y,cur);
+        p.drawLine(x-((size/2)*pow(2,d)),y+size,x+((size/2)*pow(2,d)),y+size);
+        paintTree(p,x-((size/2)*pow(2,d)),y+size,d-1,cur->left);
+        paintTree(p,x+((size/2)*pow(2,d)),y+size,d-1,cur->right);
     }
 }
 
-void paintNode(QPainter &p, int x, int y,bool isLeaf){
+void paintNode(QPainter &p, int x, int y,node* cur){
     //printTree(root);
-    p.drawEllipse(x+15,y+10,60,60);
-    p.drawLine(x+45,y,x+45,y+10);
-    QRectF rectangle(x,y+20,90,40);
+    p.drawEllipse(x+(size/6),y+(size/9),size*2/3,size*2/3);
+    p.drawLine(x+(size/2),y,x+(size/2),y+(size/9));
+    QRectF rectangle(x,y+(size*2/9),size,size*4/9);
     p.fillRect(rectangle,Qt::white);
-    if(!isLeaf){
-        p.drawLine(x+45,y+70,x+45,y+90);
+    QString text=QString::fromStdString(attributes[cur->attributeIndex]);
+    text.append("\n");
+    text.append(QString::fromStdString(to_string(cur->median)));
+    p.drawText(rectangle,Qt::AlignCenter,text);
+    if(cur->left!=nullptr && cur->right!=nullptr){
+        p.drawLine(x+(size/2),y+(size*7/9),x+(size/2),y+size);
     }
-
 }
 

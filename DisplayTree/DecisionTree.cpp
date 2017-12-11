@@ -156,16 +156,12 @@ vector< vector<entry*> > getSubSet(vector<entry*> &set){
     return ret;
 }
 
-int nodeList(node* cur,vector<node*> &tree){
+int getDepth(node* cur){
     if(cur->left==nullptr || cur->right==nullptr){
-        //cout<<cur->attributeIndex<<" "<<cur->median<<endl;
-        tree.push_back(cur);
         return 1;
     }else{
-        tree.push_back(cur);
-        //cout<<cur->attributeIndex<<" "<<cur->median<<endl;
-        int d1=nodeList(cur->left,tree);
-        int d2=nodeList(cur->right,tree);
+        int d1=getDepth(cur->left);
+        int d2=getDepth(cur->right);
         if(d1>d2){
             return d1+1;
         }else{

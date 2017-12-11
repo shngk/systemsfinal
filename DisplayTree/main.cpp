@@ -12,15 +12,13 @@ int main(int argc, char *argv[]){
        node *root = new node;
        buildTree(data, root, typeCount);
        vector<node*> tree;
-       int depth=nodeList(root,tree);
+       int depth=getDepth(root);
        //cout<<tree.size()<<endl;
        //cout<<"DONE"<<endl;
 
        QApplication a(argc, argv);
        MainWindow w;
-       w.getRoot(root);
-
-       w.getTree(tree,depth);
+       w.getRoot(root,depth);
        w.getAttributes(names);
        w.show();
 
