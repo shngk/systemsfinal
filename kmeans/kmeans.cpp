@@ -74,13 +74,9 @@ int main(){
   vector<centroid> old_c3;
   
   int iterations = 0;
-
+  int working = 1;
   // running the algorithm
-  while(iterations < 20) { //need to figure out how to know when we're done
-    // // save old centroids for convergence test
-    old_c1.push_back(*cluster1);
-    old_c2.push_back(*cluster2);
-    old_c3.push_back(*cluster3);
+  while(working) { //need to figure out how to know when we're done
     
     // // assign labels to each datapoint based on centroids
     assign_pts(list, cluster1, cluster2, cluster3);
@@ -95,16 +91,24 @@ int main(){
     print_cluster(cluster3);
     cout << "Number of iterations: ";
     cout << iterations << "\n";
+
+    // stop running this loop if the centroids do not continue changing
+    if ((iterations != 0) && (compare(cluster1, &(old_c1.back()))) && (compare(cluster2, &(old_c2.back()))) && (compare(cluster3, &(old_c3.back())))){
+      working = 0;
+      break;
+    }
+ 
+    // // save old centroids for convergence test
+    old_c1.push_back(*cluster1);
+    old_c2.push_back(*cluster2);
+    old_c3.push_back(*cluster3);
+
     
-    // // assign centroids based on datapoint labels
+    // // assign new centroids based on datapoint labels
     cluster1 = calculate_centroid(cluster1);
     cluster2 = calculate_centroid(cluster2);
     cluster3 = calculate_centroid(cluster3);
-
-    // stop running this loop if the centroids do not continue changing
-    if ((compare(cluster1, &(old_c1.back())) == 0) && (compare(cluster2, &(old_c2.back())) == 0) && (compare(cluster3, &(old_c3.back())))){
-	break;
-    }
+       
     iterations++;
   }
 }

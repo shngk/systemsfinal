@@ -148,37 +148,51 @@ void print_cluster(centroid * c){
 }
 
 int compare(centroid *c1, centroid *c2){
-  vector<string> list1;
-  vector<string> list2;
+  vector<double> list1;
+  vector<double> list2;
+
   
   // copy id #s from c1->elements into list1
-  for(int i = 0; i < c1->elements.size(); i++){
-    list1.push_back(c1->elements[i][5]);
+  for(unsigned int i = 0; i < c1->elements.size(); i++){
+    list1.push_back(atof(c1->elements[i][5].c_str())); 
   }
-
+  
   // copy id #s from c1->elements into list2
-  for(int i = 0; i < c2->elements.size(); i++){
-    list2.push_back(c2->elements[i][5]);
+  for(unsigned int i = 0; i < c2->elements.size(); i++){
+    list2.push_back(atof(c2->elements[i][5].c_str()));
   }
 
   // sort lists
   std::sort(list1.begin(), list1.end());
   std::sort(list2.begin(), list2.end());
-
+  
   // comment this out when done:
   // printing the sorted lists to check that this method works correctly:
-  for(int i = 0; i < list1.size(); i++){
+  /*  cout << "Do we make it this far?\n The list is: " << list1.size() << " elements\n";
+  for(unsigned int i = 0; i < list1.size(); i++){
     cout << "list1: \n";
     cout << list1[i];
     cout << "\n";
+    }*/
+  
+  int the_same = 0;
+  // compare the lists
+  if(list1.size() == list2.size()){
+    unsigned int num_same = 0;  //the number of elements that match in the list
+    for (unsigned int i = 0; i < list1.size(); i++){
+      if(list1[i] == list2[i])
+	num_same++;
+    }
+    if(num_same == list1.size()) //If all the elements in the list are the same
+      the_same = 1;
   }
   
-  // compare the lists
-  if(list1 == list2){
+  if(the_same){
     // return 0 if true
+    return 1;
+  }
+  else{
+    // return -1 if false
     return 0;
   }
-
-  // return -1 if false
-  return -1;
 }
