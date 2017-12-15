@@ -1,0 +1,7 @@
+kmeans: runs with 5 parameters separated by a space:
+
+	-dataset file name
+	-index of value used for x-axis
+	-max value of x-axis values (don't over-estimate: round down)
+	-index of value used for y-axis
+       	-max value of y-axis (don't over-estimate: round down)

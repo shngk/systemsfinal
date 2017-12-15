@@ -20,11 +20,11 @@ class k_node {
 class centroid;
 
 // functions used in k-means algorithm
-centroid* get_random_centroid();
+centroid * get_random_centroid(int x_max, int y_max);
 
-void assign_pts(vector<vector<string> > data, centroid c1, centroid c2, centroid c3);
+void assign_pts(vector<vector<string> > data, centroid c1, centroid c2, centroid c3, int x, int y);
 
-centroid * calculate_centroid(centroid *c);
+centroid * calculate_centroid(centroid *c, int x, int y, int x_max, int y_max);
 
 // function for comparing two centroids
 // returns 0 if true, -1 if false

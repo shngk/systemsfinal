@@ -10,13 +10,23 @@ using namespace std;
 using std::vector;
 
 
-int main(){
+int main(int argc, char* argv[]){
   // read in the data!
+  if (argc < 6){
+    cout << "Not enough arguments!\nEnter in order:\n -data file name\n -index of x parameter(int)\n -max value of x(int)\n -index of y parameter (int)\n -max value of y (int)\n";
+    exit(-1);
+  }
+  
   ifstream data;
-  data.open("iris.data");
+  data.open(argv[1]);
+
+  int x = atoi(argv[2]);
+  int x_max = atoi(argv[3]);
+  int y = atoi(argv[4]);
+  int y_max = atoi(argv[5]);
 
   if(!data){                       //terminate if error opening file
-    cout << "Unable to open file\n";
+    cout << "Unable to open file: " << argv[1] << "\n";
     exit(1); 
   }
 
@@ -64,9 +74,9 @@ int main(){
   // trying to get species clusterong on petal length & petal width
 
   // initialize centroids randomly
-  centroid *cluster1 = get_random_centroid();
-  centroid *cluster2 = get_random_centroid();
-  centroid *cluster3 = get_random_centroid();
+  centroid *cluster1 = get_random_centroid(x_max, y_max);
+  centroid *cluster2 = get_random_centroid(x_max, y_max);
+  centroid *cluster3 = get_random_centroid(x_max, y_max);
   
   // initialize book-keeping variables
   vector<centroid> old_c1;
@@ -76,10 +86,10 @@ int main(){
   int iterations = 0;
   int working = 1;
   // running the algorithm
-  while(working) { //need to figure out how to know when we're done
+  while(working) {
     
     // // assign labels to each datapoint based on centroids
-    assign_pts(list, cluster1, cluster2, cluster3);
+    assign_pts(list, cluster1, cluster2, cluster3, x, y);
 
 
     //PRINT CLUSTERS OUT (for visualization)
@@ -97,7 +107,9 @@ int main(){
       working = 0;
       break;
     }
- 
+
+    cout << "sucessfully compared and shit\n";
+    
     // // save old centroids for convergence test
     old_c1.push_back(*cluster1);
     old_c2.push_back(*cluster2);
@@ -105,9 +117,9 @@ int main(){
 
     
     // // assign new centroids based on datapoint labels
-    cluster1 = calculate_centroid(cluster1);
-    cluster2 = calculate_centroid(cluster2);
-    cluster3 = calculate_centroid(cluster3);
+    cluster1 = calculate_centroid(cluster1, x, y, x_max, y_max);
+    cluster2 = calculate_centroid(cluster2, x, y, x_max, y_max);
+    cluster3 = calculate_centroid(cluster3, x, y, x_max, y_max);
        
     iterations++;
   }
